@@ -1,13 +1,16 @@
 import React from 'react';
+import { hot } from 'react-hot-loader/root';
+import { Route, Switch } from 'react-router-dom';
 import { Header } from './components/Header';
 import generateID2 from './utils/id2';
-import { Home } from './pages';
+import { Home, Plan } from './pages';
 import { Footer } from './components/Footer';
 import { HelpModal } from './components/modals/HelpModal';
 import { IStore } from './store/types';
 import { Store } from './store';
 import { PlanDataModal } from './components/modals/PlanDataModal';
 import StoreAction from './store/StoreAction';
+import { ROUTE_PATH } from './utils/routes';
 
 function App() {
   // const [loading, setLoading] = React.useState(true);
@@ -44,10 +47,21 @@ function App() {
     }
   }, [Action, dispatch, id2]);
 
+  const renderApp = () => {
+    if (store.user?.isAuth) {
+      return (
+        <>
+          <Route path="/" exact component={Home} />
+          <Route path={ROUTE_PATH.plan} exact component={Plan} />
+        </>
+      );
+    }
+    return <Route path="/" component={Home} />;
+  };
   return (
     <div className="App">
       <Header />
-      <Home />
+      <Switch>{renderApp()}</Switch>
       <Footer />
       {store.modal.help && store.modal.open ? <HelpModal /> : null}
       {store.modal.dataPlan && store.modal.open ? <PlanDataModal /> : null}
@@ -55,4 +69,4 @@ function App() {
   );
 }
 
-export default App;
+export default hot(App);

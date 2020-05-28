@@ -1,13 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Plan from '../assets/images/plan_start.png';
 import { IStore } from '../store/types';
 import { Store } from '../store';
+import { ROUTE_PATH } from '../utils/routes';
+import { MainWrapperS } from '../global/styles';
 
 export const Home: React.FC = () => {
   const { store } = React.useContext<IStore>(Store);
   const { user } = store;
   return (
-    <section className="main-wrapper">
+    <MainWrapperS>
       <div className="container home">
         <div className="row">
           <div className="col-md-6">
@@ -34,12 +37,14 @@ export const Home: React.FC = () => {
             </p>
             {user?.isAuth ? (
               <div className="btn-wrapper">
-                <button className="btn btn-def">Створити</button>
+                <Link to={ROUTE_PATH.plan} className="btn btn-def">
+                  Створити
+                </Link>
               </div>
             ) : null}
           </div>
         </div>
       </div>
-    </section>
+    </MainWrapperS>
   );
 };
