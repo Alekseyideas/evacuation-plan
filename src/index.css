@@ -5,3 +5,15 @@ button {
   padding: 0;
   outline: 0;
 }
+
+body {
+  padding-top: 90px;
+}
+
+header {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+
+}
