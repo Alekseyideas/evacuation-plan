@@ -9,30 +9,14 @@ import {
   PlanBodyS,
   RightBtnsWrapperS,
   RightColS,
+  ButtonTitleS,
+  RightBtnsControls,
+  ColorWrapperControlsS,
+  BtnColorS,
 } from './PlanStyle';
+import { btnsLeft, btnsRight } from '../utils/constructorBtns';
 
 export const Plan: React.FunctionComponent = () => {
-  const btnsLeft = [
-    {
-      title: 'Вихiд',
-      desc:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
-      icon: '',
-      id: 1,
-      link: 'http://localhost:3000/#/plan',
-    },
-  ];
-  const btnsRight = [
-    {
-      title: 'Видалити',
-      desc:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
-      icon: '',
-      id: 1,
-      link: '',
-    },
-  ];
-
   const [currentBtn, setCurrentBtn] = React.useState<
     typeof btnsLeft[0] | null
   >();
@@ -53,13 +37,37 @@ export const Plan: React.FunctionComponent = () => {
                         setCurrentBtn(null);
                       }}
                       key={btn.id}
-                    />
+                    >
+                      {typeof btn.icon === 'string' ? (
+                        <img src={btn.icon} alt="icon" />
+                      ) : (
+                        <btn.icon />
+                      )}
+                      <ButtonTitleS>{btn.title}</ButtonTitleS>
+                    </ButtonIconS>
                   );
                 })}
               </LeftBtnsWrapperS>
               <RightBtnsWrapperS>
                 {btnsRight.map((btn) => {
-                  return <ButtonIconS key={btn.id} />;
+                  return (
+                    <ButtonIconS
+                      onMouseEnter={() => {
+                        setCurrentBtn(btn);
+                      }}
+                      onMouseLeave={() => {
+                        setCurrentBtn(null);
+                      }}
+                      key={btn.id}
+                    >
+                      {typeof btn.icon === 'string' ? (
+                        <img src={btn.icon} alt="icon" />
+                      ) : (
+                        <btn.icon />
+                      )}
+                      <ButtonTitleS>{btn.title}</ButtonTitleS>
+                    </ButtonIconS>
+                  );
                 })}
               </RightBtnsWrapperS>
             </PlanHeaderS>
@@ -67,20 +75,35 @@ export const Plan: React.FunctionComponent = () => {
             <PlanBodyS />
           </PlanS>
           <RightColS>
-            <h2>{currentBtn?.title}</h2>
-            <p>{currentBtn?.desc}</p>
-            {currentBtn?.link ? (
-              <p>
-                Детальна iнформацiя: <br />{' '}
-                <a
-                  href={currentBtn.link}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  {currentBtn.link}
-                </a>
-              </p>
-            ) : null}
+            <div>
+              <h2>{currentBtn?.title}</h2>
+              <p>{currentBtn?.desc}</p>
+              {currentBtn?.link ? (
+                <p>
+                  Детальна iнформацiя: <br />{' '}
+                  <a
+                    href={currentBtn.link}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    {currentBtn.link}
+                  </a>
+                </p>
+              ) : null}
+            </div>
+            <RightBtnsControls>
+              <ColorWrapperControlsS>
+                <BtnColorS active>Колiр</BtnColorS>
+                <BtnColorS>Чорно-бiлий</BtnColorS>
+              </ColorWrapperControlsS>
+
+              <button
+                className="btn btn-def"
+                style={{ width: '100%', marginTop: '10px' }}
+              >
+                Друкувати
+              </button>
+            </RightBtnsControls>
           </RightColS>
         </PlanWrapperS>
       </div>
