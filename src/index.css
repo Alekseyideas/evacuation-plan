@@ -10,10 +10,25 @@ body {
   padding-top: 90px;
 }
 
+@media screen and (max-height: 900px) {
+  body {
+    padding-top: 220px;
+  }
+}
+
+.footer {
+  margin-top: 100px;
+}
+
 header {
   position: absolute;
   left: 0;
   top: 0;
   width: 100%;
 
+}
+
+.header__first {
+  padding-top: 5px;
+  padding-bottom: 5px;
 }

@@ -3,7 +3,7 @@ import { ExitZap } from '../components/svg/ExitZap';
 import { EvShl } from '../components/svg/EvShl';
 import { NapLeft } from '../components/svg/NapLeft';
 import { NapRight } from '../components/svg/NapRight';
-import Tel from '../assets/images/tel.svg';
+// import Tel from '../assets/images/tel.svg';
 import { Vogn } from '../components/svg/Vogn';
 import { PogSp } from '../components/svg/PogSp';
 import { PogKran } from '../components/svg/PogKran';
@@ -17,7 +17,8 @@ import { VikZ } from '../components/svg/VikZ';
 import { VikV } from '../components/svg/VikV';
 import { Shodi } from '../components/svg/Shodi';
 import { DeleteIcon } from '../components/svg/Del';
-import { CleanIcon } from '../components/svg/CleanIcon';
+// import { CleanIcon } from '../components/svg/CleanIcon';
+import { Tel } from '../components/svg/Tel';
 
 export const btnsLeft = [
   {
