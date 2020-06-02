@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const MainWrapperS = styled.section`
-  min-height: calc(100vh - 120px);
+  min-height: calc(100vh - 186px);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;

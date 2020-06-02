@@ -10,14 +10,18 @@ body {
   padding-top: 90px;
 }
 
-@media screen and (max-height: 900px) {
+/* @media screen and (max-height: 500px) {
   body {
     padding-top: 220px;
   }
+} */
+
+.home {
+  margin-top: 0 !important;
 }
 
 .footer {
-  margin-top: 100px;
+  margin-top: 50px;
 }
 
 header {

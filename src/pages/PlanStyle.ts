@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const PlanWrapperS = styled.div`
   display: flex;
+  margin-top: 20px;
 `;
 export const PlanS = styled.div`
   width: 973px;

@@ -18,7 +18,7 @@ export const Header: React.FC = () => {
       </div>
       <div className="header__second">
         <div className="container">
-          <a href="/">
+          <a href="https://service.mcfr.ua/ua/plan/">
             <img className="logo" alt="logo" src={Logo} />
           </a>
         </div>
