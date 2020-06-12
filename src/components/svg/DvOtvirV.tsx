@@ -6,6 +6,12 @@ export const DvOtvirV: React.FunctionComponent = () => {
       className="trLeft"
       height="512"
       viewBox="0 0 128 128"
+      style={{
+        width: '30px',
+        height: '30px',
+        maxWidth: 'initial',
+        maxHeight: 'initial',
+      }}
       width="512"
       xmlns="http://www.w3.org/2000/svg"
     >

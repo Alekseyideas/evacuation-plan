@@ -14,7 +14,9 @@ export const Home: React.FC = () => {
       <div className="container home">
         <div className="row">
           <div className="col-md-6">
-            <h1>Конструктор Плану евакуації на випадок пожежі</h1>
+            <h1 style={{ marginTop: '20px' }}>
+              Конструктор Плану евакуації на випадок пожежі
+            </h1>
           </div>
         </div>
         <div className="row home-plan-wrapper">

@@ -16,6 +16,7 @@ export const PlanHeaderS = styled.div`
 `;
 export const PlanBodyS = styled.div`
   display: block;
+  position: relative;
   --nr: 25; /* number of rows */
   --nc: 30; /* number of columns */
   --b: 1px; /* border length */

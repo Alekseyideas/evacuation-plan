@@ -5,6 +5,12 @@ export const DeleteIcon: React.FunctionComponent = () => {
     <svg
       height="427pt"
       viewBox="-40 0 427 427.00131"
+      style={{
+        width: '20px',
+        height: '20px',
+        maxWidth: 'initial',
+        maxHeight: 'initial',
+      }}
       width="427pt"
       xmlns="http://www.w3.org/2000/svg"
     >

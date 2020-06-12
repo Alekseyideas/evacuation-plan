@@ -5,6 +5,7 @@ export const Tel: React.FunctionComponent = () => {
     <svg
       version="1.1"
       height="384"
+      style={{ width: '19px', height: '19px' }}
       width="384"
       id="Capa_1"
       x="0px"

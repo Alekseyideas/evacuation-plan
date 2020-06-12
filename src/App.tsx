@@ -11,6 +11,8 @@ import { Store } from './store';
 import { PlanDataModal } from './components/modals/PlanDataModal';
 import StoreAction from './store/StoreAction';
 import { ROUTE_PATH } from './utils/routes';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 function App() {
   // const [loading, setLoading] = React.useState(true);
@@ -59,13 +61,15 @@ function App() {
     return <Route path="/" component={Home} />;
   };
   return (
-    <div className="App">
-      <Header />
-      <Switch>{renderApp()}</Switch>
-      <Footer />
-      {store.modal.help && store.modal.open ? <HelpModal /> : null}
-      {store.modal.dataPlan && store.modal.open ? <PlanDataModal /> : null}
-    </div>
+    <DndProvider backend={HTML5Backend}>
+      <div className="App">
+        <Header />
+        <Switch>{renderApp()}</Switch>
+        <Footer />
+        {store.modal.help && store.modal.open ? <HelpModal /> : null}
+        {store.modal.dataPlan && store.modal.open ? <PlanDataModal /> : null}
+      </div>
+    </DndProvider>
   );
 }
 
