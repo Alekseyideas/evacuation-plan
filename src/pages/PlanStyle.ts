@@ -13,12 +13,14 @@ export const PlanHeaderS = styled.div`
   padding: 3px 1.5px;
   display: flex;
   justify-content: space-between;
+  z-index: 2;
+  position: relative;
 `;
 export const PlanBodyS = styled.div`
   display: block;
   position: relative;
-  --nr: 25; /* number of rows */
-  --nc: 30; /* number of columns */
+  --nr: 44; /* number of rows */
+  --nc: 52; /* number of columns */
   --b: 1px; /* border length */
 
   --g: transparent calc(100% - var(--b)), rgba(83, 83, 83, 0.2) 0;
@@ -34,6 +36,7 @@ export const PlanBodyS = styled.div`
   height: 768px;
   border: 1px solid rgb(83, 83, 83);
   margin-top: 5px;
+  overflow: hidden;
 `;
 export const btnsWrapperS = styled.div`
   display: flex;

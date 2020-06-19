@@ -43,6 +43,16 @@ export default function reducer(state: IState, action: IAction): IState {
         ...state,
         loading: action.payload,
       };
+    case EActionTypes.SET_EDIT_MODE:
+      return {
+        ...state,
+        editMode: action.payload,
+      };
+    case EActionTypes.TRANSFORM_APPLY:
+      return {
+        ...state,
+        transformApply: action.payload,
+      };
     default:
       return state;
   }

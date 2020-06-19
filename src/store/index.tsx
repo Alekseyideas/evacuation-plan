@@ -9,6 +9,8 @@ const initialState: IState = {
   },
   modal: initialModalState,
   loading: false,
+  editMode: false,
+  transformApply: false,
 };
 
 export const Store = React.createContext<IStore>({

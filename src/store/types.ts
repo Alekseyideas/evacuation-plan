@@ -15,6 +15,8 @@ export interface IUser {
 export interface IState {
   user: IUser | null;
   modal: IModal;
+  editMode: boolean;
+  transformApply: boolean;
   readonly errors?: string | undefined;
   readonly loading: boolean;
 }
@@ -44,4 +46,6 @@ export enum EActionTypes {
   CLOSE_MODAL = 'CLOSE_MODAL',
   RESET_MODAL = 'RESET_MODAL',
   HELP_MODAL = 'HELP_MODAL',
+  SET_EDIT_MODE = 'SET_EDIT_MODE',
+  TRANSFORM_APPLY = 'TRANSFORM_APPLY',
 }

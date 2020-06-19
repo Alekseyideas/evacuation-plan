@@ -15,11 +15,20 @@ import {
   BtnColorS,
 } from './PlanStyle';
 import { btnsLeft, btnsRight } from '../utils/constructorBtns';
-import { useDrag, DragSourceMonitor, useDrop, XYCoord } from 'react-dnd';
+import {
+  useDrag,
+  DragSourceMonitor,
+  useDrop,
+  XYCoord,
+  useDragLayer,
+} from 'react-dnd';
 import { Box } from '../components/Box';
 import update from 'immutability-helper';
 import { snapToGrid as doSnapToGrid } from '../utils/snapToGrid';
 import PlanHeader from '../components/PlanHeader';
+import { svgTypes } from '../global/svgTypes';
+import { Resizable } from 're-resizable';
+import { PrevExit } from '../components/svg/PrevExit';
 
 export interface ContainerProps {
   hideSourceOnDrag: boolean;
@@ -41,11 +50,18 @@ export const Plan: React.FunctionComponent = () => {
   const [{ canDrop, isOver }, drop] = useDrop({
     accept: 'box',
     drop(item: DragItem, monitor) {
+      console.log('item: ', item);
       const delta = monitor.getDifferenceFromInitialOffset() as XYCoord;
+      console.log(delta);
       let left = Math.round(item.left + delta.x);
       let top = Math.round(item.top + delta.y);
       [left, top] = doSnapToGrid(left || 0, top || 0);
-      moveBox(item.id || `${new Date().getTime()}`, left || 0, top || 0);
+      moveBox(
+        item.id || `${new Date().getTime()}`,
+        left || 0,
+        top || 0,
+        item.name as svgTypes['tp']
+      );
       return undefined;
     },
     collect: (monitor) => ({
@@ -59,13 +75,33 @@ export const Plan: React.FunctionComponent = () => {
       top: number;
       left: number;
       title: string;
+      name: svgTypes['tp'];
     };
   }>({
-    a: { top: 20, left: 80, title: 'Drag me around' },
-    b: { top: 180, left: 20, title: 'Drag me too' },
+    // a: { top: 20, left: 80, title: 'Drag me around' },
+    // b: { top: 180, left: 20, title: 'Drag me too' },
   });
 
-  const moveBox = (id: string, left: number, top: number) => {
+  const {
+    itemType,
+    isDragging,
+    item,
+    initialOffset,
+    currentOffset,
+  } = useDragLayer((monitor) => ({
+    item: monitor.getItem(),
+    itemType: monitor.getItemType(),
+    initialOffset: monitor.getInitialSourceClientOffset(),
+    currentOffset: monitor.getSourceClientOffset(),
+    isDragging: monitor.isDragging(),
+  }));
+
+  const moveBox = (
+    id: string,
+    left: number,
+    top: number,
+    name: svgTypes['tp']
+  ) => {
     if (boxes[id]) {
       setBoxes(
         update(boxes, {
@@ -77,7 +113,14 @@ export const Plan: React.FunctionComponent = () => {
     } else {
       setBoxes(
         update(boxes, {
-          [id]: { $set: { top: 180, left: 20, title: id } },
+          [id]: {
+            $set: {
+              top: 180,
+              left: 20,
+              title: id,
+              name,
+            },
+          },
         })
       );
     }
@@ -86,6 +129,11 @@ export const Plan: React.FunctionComponent = () => {
   const [currentBtn, setCurrentBtn] = React.useState<
     typeof btnsLeft[0] | null
   >();
+
+  if (isDragging) {
+    // console.log(item);
+    // console.log(initialOffset, currentOffset);
+  }
   return (
     // <DndProvider backend={HTML5Backend}>
     <MainWrapperS>
@@ -95,11 +143,9 @@ export const Plan: React.FunctionComponent = () => {
             <PlanHeader setCurrentBtn={setCurrentBtn} />
             <PlanBodyS ref={drop}>
               {Object.keys(boxes).map((key) => {
-                const { left, top, title } = boxes[key];
+                const { left, top, title, name } = boxes[key];
                 return (
-                  <Box key={key} id={key} left={left} top={top}>
-                    {title}
-                  </Box>
+                  <Box key={key} id={key} left={left} top={top} name={name} />
                 );
               })}
             </PlanBodyS>

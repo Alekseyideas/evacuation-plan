@@ -27,4 +27,15 @@ export default class StoreAction {
       type: EActionTypes.SET_LOADING,
       payload,
     });
+
+  public setEditMode = (payload: boolean) =>
+    this.dispatch({
+      type: EActionTypes.SET_EDIT_MODE,
+      payload,
+    });
+  public setApply = (payload: boolean) =>
+    this.dispatch({
+      type: EActionTypes.TRANSFORM_APPLY,
+      payload,
+    });
 }

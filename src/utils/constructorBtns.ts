@@ -26,11 +26,13 @@ export const btnsLeft = [
     desc:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
     icon: ExitIcon,
+    name: 'exit',
     id: 1,
     link: 'http://localhost:3000/#/plan',
   },
   {
     title: 'Запасний вихід',
+    name: 'zExit',
     desc:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
     icon: ExitZap,
@@ -39,6 +41,7 @@ export const btnsLeft = [
   },
   {
     title: 'Евакуаційний шлях',
+    name: 'evSh',
     desc:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
     icon: EvShl,
@@ -47,6 +50,7 @@ export const btnsLeft = [
   },
   {
     title: 'Напрямок до виходу ліворуч',
+    name: 'nprDoVL',
     desc:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
     icon: NapLeft,
@@ -55,6 +59,7 @@ export const btnsLeft = [
   },
   {
     title: 'Напрямок до виходу праворуч',
+    name: 'nprDoVP',
     desc:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
     icon: NapRight,
@@ -63,6 +68,7 @@ export const btnsLeft = [
   },
   {
     title: 'Телефон',
+    name: 'tel',
     desc:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
     icon: Tel,
@@ -71,6 +77,7 @@ export const btnsLeft = [
   },
   {
     title: 'Вогнегасник',
+    name: 'vogn',
     desc:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
     icon: Vogn,
@@ -79,6 +86,7 @@ export const btnsLeft = [
   },
   {
     title: 'Пожежний сповіщувач',
+    name: 'pogSp',
     desc:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
     icon: PogSp,
@@ -87,6 +95,7 @@ export const btnsLeft = [
   },
   {
     title: 'Пожежний кран-комплект',
+    name: 'pogKran',
     desc:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
     icon: PogKran,
@@ -95,6 +104,7 @@ export const btnsLeft = [
   },
   {
     title: 'Пожежна драбина',
+    name: 'pogDrabina',
     desc:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
     icon: PogDrabina,
@@ -103,6 +113,7 @@ export const btnsLeft = [
   },
   {
     title: 'Ви перебуваєте тут',
+    name: 'location',
     desc:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
     icon: Location,
@@ -111,6 +122,7 @@ export const btnsLeft = [
   },
   {
     title: 'Стіна зовнішня',
+    name: 'zovnStina',
     desc:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
     icon: ZovnStina,
@@ -119,6 +131,7 @@ export const btnsLeft = [
   },
   {
     title: 'Стіна внутрішня',
+    name: 'vnutrStina',
     desc:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
     icon: VnutrStina,
@@ -127,6 +140,7 @@ export const btnsLeft = [
   },
   {
     title: 'Дверний отвір у зовнішній стіні',
+    name: 'dvOtvirZ',
     desc:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
     icon: DvOtvirZ,
@@ -135,6 +149,7 @@ export const btnsLeft = [
   },
   {
     title: 'Дверний отвір у внутрішній стіні',
+    name: 'dvOtvirV',
     desc:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
     icon: DvOtvirV,
@@ -143,6 +158,7 @@ export const btnsLeft = [
   },
   {
     title: 'Вікно у зовнішній стіні',
+    name: 'vikZ',
     desc:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
     icon: VikZ,
@@ -151,6 +167,7 @@ export const btnsLeft = [
   },
   {
     title: 'Вікно у внутрішній стіні',
+    name: 'vikV',
     desc:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
     icon: VikV,
@@ -159,6 +176,7 @@ export const btnsLeft = [
   },
   {
     title: 'Сходи',
+    name: 'shodi',
     desc:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
     icon: Shodi,
@@ -170,10 +188,20 @@ export const btnsLeft = [
 export const btnsRight = [
   {
     title: 'Видалити',
+    name: 'deleteIcon',
     desc:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
     icon: DeleteIcon,
     id: 1,
+    link: '',
+  },
+  {
+    title: 'Примениить',
+    name: 'deleteIcon',
+    desc:
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
+    icon: DeleteIcon,
+    id: 2,
     link: '',
   },
   // {
