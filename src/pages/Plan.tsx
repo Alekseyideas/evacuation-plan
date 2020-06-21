@@ -27,8 +27,7 @@ import update from 'immutability-helper';
 import { snapToGrid as doSnapToGrid } from '../utils/snapToGrid';
 import PlanHeader from '../components/PlanHeader';
 import { svgTypes } from '../global/svgTypes';
-import { Resizable } from 're-resizable';
-import { PrevExit } from '../components/svg/PrevExit';
+import { PrevShodi } from '../components/svg/PrevShodi';
 
 export interface ContainerProps {
   hideSourceOnDrag: boolean;
@@ -47,19 +46,26 @@ export interface DragItem {
 }
 
 export const Plan: React.FunctionComponent = () => {
+  const [currentBtn, setCurrentBtn] = React.useState<
+    typeof btnsLeft[0] | null
+  >();
   const [{ canDrop, isOver }, drop] = useDrop({
     accept: 'box',
     drop(item: DragItem, monitor) {
-      console.log('item: ', item);
       const delta = monitor.getDifferenceFromInitialOffset() as XYCoord;
-      console.log(delta);
       let left = Math.round(item.left + delta.x);
       let top = Math.round(item.top + delta.y);
-      [left, top] = doSnapToGrid(left || 0, top || 0);
+      const positionNumber: number = currentBtn
+        ? currentBtn.positionLeft || 0
+        : 0;
+      [left, top] = doSnapToGrid(
+        left || Math.round(delta.x + positionNumber),
+        top || Math.round(delta.y - 25)
+      );
       moveBox(
         item.id || `${new Date().getTime()}`,
-        left || 0,
-        top || 0,
+        left,
+        top,
         item.name as svgTypes['tp']
       );
       return undefined;
@@ -82,19 +88,19 @@ export const Plan: React.FunctionComponent = () => {
     // b: { top: 180, left: 20, title: 'Drag me too' },
   });
 
-  const {
-    itemType,
-    isDragging,
-    item,
-    initialOffset,
-    currentOffset,
-  } = useDragLayer((monitor) => ({
-    item: monitor.getItem(),
-    itemType: monitor.getItemType(),
-    initialOffset: monitor.getInitialSourceClientOffset(),
-    currentOffset: monitor.getSourceClientOffset(),
-    isDragging: monitor.isDragging(),
-  }));
+  // const {
+  //   itemType,
+  //   isDragging,
+  //   item,
+  //   initialOffset,
+  //   currentOffset,
+  // } = useDragLayer((monitor) => ({
+  //   item: monitor.getItem(),
+  //   itemType: monitor.getItemType(),
+  //   initialOffset: monitor.getInitialSourceClientOffset(),
+  //   currentOffset: monitor.getSourceClientOffset(),
+  //   isDragging: monitor.isDragging(),
+  // }));
 
   const moveBox = (
     id: string,
@@ -115,8 +121,8 @@ export const Plan: React.FunctionComponent = () => {
         update(boxes, {
           [id]: {
             $set: {
-              top: 180,
-              left: 20,
+              top,
+              left,
               title: id,
               name,
             },
@@ -126,26 +132,38 @@ export const Plan: React.FunctionComponent = () => {
     }
   };
 
-  const [currentBtn, setCurrentBtn] = React.useState<
-    typeof btnsLeft[0] | null
-  >();
-
-  if (isDragging) {
-    // console.log(item);
-    // console.log(initialOffset, currentOffset);
-  }
   return (
     // <DndProvider backend={HTML5Backend}>
     <MainWrapperS>
       <div className="container">
         <PlanWrapperS>
-          <PlanS>
+          <PlanS className="planWrapper">
             <PlanHeader setCurrentBtn={setCurrentBtn} />
             <PlanBodyS ref={drop}>
               {Object.keys(boxes).map((key) => {
                 const { left, top, title, name } = boxes[key];
                 return (
-                  <Box key={key} id={key} left={left} top={top} name={name} />
+                  <Box
+                    key={key}
+                    id={key}
+                    left={left}
+                    top={top}
+                    name={name}
+                    updatePosition={(newTop, newLeft) => {
+                      setBoxes(
+                        update(boxes, {
+                          [key]: {
+                            $set: {
+                              top: newTop,
+                              left: newLeft,
+                              title: key,
+                              name,
+                            },
+                          },
+                        })
+                      );
+                    }}
+                  />
                 );
               })}
             </PlanBodyS>

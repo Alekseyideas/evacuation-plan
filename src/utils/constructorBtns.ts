@@ -29,6 +29,7 @@ export const btnsLeft = [
     name: 'exit',
     id: 1,
     link: 'http://localhost:3000/#/plan',
+    positionLeft: 0,
   },
   {
     title: 'Запасний вихід',
@@ -38,6 +39,7 @@ export const btnsLeft = [
     icon: ExitZap,
     id: 2,
     link: 'http://localhost:3000/#/plan',
+    positionLeft: 30,
   },
   {
     title: 'Евакуаційний шлях',
@@ -47,6 +49,7 @@ export const btnsLeft = [
     icon: EvShl,
     id: 3,
     link: 'http://localhost:3000/#/plan',
+    positionLeft: 70,
   },
   {
     title: 'Напрямок до виходу ліворуч',
@@ -56,6 +59,7 @@ export const btnsLeft = [
     icon: NapLeft,
     id: 4,
     link: 'http://localhost:3000/#/plan',
+    positionLeft: 20,
   },
   {
     title: 'Напрямок до виходу праворуч',
@@ -65,6 +69,7 @@ export const btnsLeft = [
     icon: NapRight,
     id: 5,
     link: 'http://localhost:3000/#/plan',
+    positionLeft: 30,
   },
   {
     title: 'Телефон',
@@ -74,6 +79,7 @@ export const btnsLeft = [
     icon: Tel,
     id: 6,
     link: 'http://localhost:3000/#/plan',
+    positionLeft: 30,
   },
   {
     title: 'Вогнегасник',
@@ -119,6 +125,7 @@ export const btnsLeft = [
     icon: Location,
     id: 11,
     link: 'http://localhost:3000/#/plan',
+    positionLeft: 30,
   },
   {
     title: 'Стіна зовнішня',
@@ -128,6 +135,7 @@ export const btnsLeft = [
     icon: ZovnStina,
     id: 12,
     link: 'http://localhost:3000/#/plan',
+    positionLeft: 30,
   },
   {
     title: 'Стіна внутрішня',
@@ -137,6 +145,7 @@ export const btnsLeft = [
     icon: VnutrStina,
     id: 13,
     link: 'http://localhost:3000/#/plan',
+    positionLeft: 30,
   },
   {
     title: 'Дверний отвір у зовнішній стіні',
@@ -146,6 +155,7 @@ export const btnsLeft = [
     icon: DvOtvirZ,
     id: 14,
     link: 'http://localhost:3000/#/plan',
+    positionLeft: 30,
   },
   {
     title: 'Дверний отвір у внутрішній стіні',
@@ -155,6 +165,7 @@ export const btnsLeft = [
     icon: DvOtvirV,
     id: 15,
     link: 'http://localhost:3000/#/plan',
+    positionLeft: 30,
   },
   {
     title: 'Вікно у зовнішній стіні',
@@ -164,6 +175,7 @@ export const btnsLeft = [
     icon: VikZ,
     id: 16,
     link: 'http://localhost:3000/#/plan',
+    positionLeft: 30,
   },
   {
     title: 'Вікно у внутрішній стіні',
@@ -173,6 +185,7 @@ export const btnsLeft = [
     icon: VikV,
     id: 17,
     link: 'http://localhost:3000/#/plan',
+    positionLeft: 30,
   },
   {
     title: 'Сходи',
@@ -182,6 +195,7 @@ export const btnsLeft = [
     icon: Shodi,
     id: 18,
     link: 'http://localhost:3000/#/plan',
+    positionLeft: 30,
   },
 ];
 

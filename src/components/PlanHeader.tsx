@@ -21,28 +21,44 @@ const PlanHeader: React.FunctionComponent<IPlanHeaderProps> = ({
   setCurrentBtn,
 }) => {
   const { store, dispatch } = React.useContext<IStore>(Store);
-  const { editMode } = store;
+  // const { editMode } = store;
   const Action = new StoreAction(dispatch);
 
-  const [{ isDragging }, drag] = useDrag({
-    item: { name: 'Banana', type: 'box' },
-    end: (item: { name: string } | undefined, monitor: DragSourceMonitor) => {
-      const dropResult = monitor.getDropResult();
-      if (item && dropResult) {
-        // alert(`You dropped ${item.name} into ${}!`);
-        console.log(dropResult);
-      }
-    },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-  });
+  // const [{ isDragging }, drag] = useDrag({
+  //   item: { name: 'Banana', type: 'box', pos: 1 },
+  //   end: (
+  //     item: { name: string; pos?: number } | undefined,
+  //     monitor: DragSourceMonitor
+  //   ) => {
+  //     const dropResult = monitor.getDropResult();
+  //     if (item && dropResult) {
+  //       // alert(`You dropped ${item.name} into ${}!`);
+  //       console.log(dropResult);
+  //     }
+  //   },
+  //   collect: (monitor) => ({
+  //     isDragging: monitor.isDragging(),
+  //   }),
+  // });
   return (
     <PlanHeaderS>
       <LeftBtnsWrapperS>
         {btnsLeft.map((btn, i) => {
+          const posLeft = btnsLeft[1]
+            ? btnsLeft[1].positionLeft &&
+              btnsLeft[1].positionLeft * btn.id * 1.2
+            : 0;
+
+          // console.log(btn.id);
           return (
-            <DragIcon setCurrentBtn={setCurrentBtn} btn={btn} key={btn.id} />
+            <DragIcon
+              setCurrentBtn={setCurrentBtn}
+              btn={{
+                ...btn,
+                positionLeft: posLeft,
+              }}
+              key={btn.id}
+            />
           );
         })}
       </LeftBtnsWrapperS>
@@ -56,7 +72,11 @@ const PlanHeader: React.FunctionComponent<IPlanHeaderProps> = ({
             return null;
           };
           return (
-            <ButtonIconS onClick={clickFn} key={btn.id}>
+            <ButtonIconS
+              id={'rightBtn-' + btn.id}
+              onClick={clickFn}
+              key={btn.id}
+            >
               {typeof btn.icon === 'string' ? (
                 <img src={btn.icon} alt="icon" />
               ) : (
