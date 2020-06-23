@@ -2,7 +2,6 @@ import React from 'react';
 import { IProps } from './types';
 import styled from 'styled-components';
 import { WrapperLinesS } from './styles';
-import Icon from '../../assets/images/planIcons/next.svg';
 export const PrevShodi = ({ w, h, transform }: IProps) => {
   return (
     <WrapperLinesS
@@ -71,21 +70,6 @@ const LineS = styled.div`
   &:last-child,
   &:first-child {
     opacity: 0;
-  }
-`;
-const ArS = styled.div`
-  position: absolute;
-  height: 100%;
-  width: 10%;
-  right: 0;
-  transform: translateX(20%);
-  &::before {
-    width: 100%;
-    height: 18%;
-    content: '';
-    transform: rotate(45deg) skew(-45deg);
-    background: #00ad97;
-    display: block;
   }
 `;
 

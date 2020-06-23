@@ -9,6 +9,7 @@ const initialState: IState = {
   },
   modal: initialModalState,
   loading: false,
+  editedItem: null,
   editMode: false,
   transformApply: false,
 };

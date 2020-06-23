@@ -1,6 +1,5 @@
 import React from 'react';
 import { IProps } from './types';
-import styled from 'styled-components';
 
 export const PrevNapLeft = ({ w, h, transform }: IProps) => {
   return (
@@ -107,20 +106,3 @@ export const PrevNapLeft = ({ w, h, transform }: IProps) => {
     </svg>
   );
 };
-
-const WrapperS = styled.div<{ w: number; h: number }>`
-  width: ${({ w }) => `${w}px`};
-  height: ${({ h }) => `${h}px`};
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 2px;
-`;
-const InnerWrapperS = styled.div`
-  width: 100%;
-  height: 100%;
-  background: #00a651;
-  border-radius: 5px;
-`;

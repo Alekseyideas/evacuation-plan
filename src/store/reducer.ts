@@ -53,6 +53,16 @@ export default function reducer(state: IState, action: IAction): IState {
         ...state,
         transformApply: action.payload,
       };
+    case EActionTypes.SET_EDIT_ITEM:
+      return {
+        ...state,
+        editedItem: action.payload,
+      };
+    case EActionTypes.DELETE_EDIT_ITEM:
+      return {
+        ...state,
+        editedItem: null,
+      };
     default:
       return state;
   }

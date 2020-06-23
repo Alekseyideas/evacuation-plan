@@ -36,7 +36,7 @@ export const PlanBodyS = styled.div`
   height: 768px;
   border: 1px solid rgb(83, 83, 83);
   margin-top: 5px;
-  overflow: hidden;
+  /* overflow: hidden; */
 `;
 export const btnsWrapperS = styled.div`
   display: flex;
@@ -108,6 +108,13 @@ export const ButtonIconS = styled.button`
 
     ${ButtonTitleS} {
       display: block;
+    }
+  }
+  &:active {
+    background: rgb(0, 0, 0);
+
+    ${ButtonTitleS} {
+      display: none;
     }
   }
 `;

@@ -2,32 +2,22 @@ import * as React from 'react';
 import { MainWrapperS } from '../global/styles';
 import {
   PlanWrapperS,
-  PlanHeaderS,
   PlanS,
-  ButtonIconS,
-  LeftBtnsWrapperS,
   PlanBodyS,
-  RightBtnsWrapperS,
   RightColS,
-  ButtonTitleS,
   RightBtnsControls,
   ColorWrapperControlsS,
   BtnColorS,
 } from './PlanStyle';
-import { btnsLeft, btnsRight } from '../utils/constructorBtns';
-import {
-  useDrag,
-  DragSourceMonitor,
-  useDrop,
-  XYCoord,
-  useDragLayer,
-} from 'react-dnd';
+import { btnsLeft } from '../utils/constructorBtns';
+import { useDrop, XYCoord } from 'react-dnd';
 import { Box } from '../components/Box';
 import update from 'immutability-helper';
 import { snapToGrid as doSnapToGrid } from '../utils/snapToGrid';
 import PlanHeader from '../components/PlanHeader';
 import { svgTypes } from '../global/svgTypes';
-import { PrevShodi } from '../components/svg/PrevShodi';
+// import { IStore } from '../store/types';
+// import { Store } from '../store';
 
 export interface ContainerProps {
   hideSourceOnDrag: boolean;
@@ -46,9 +36,12 @@ export interface DragItem {
 }
 
 export const Plan: React.FunctionComponent = () => {
+  // const { store } = React.useContext<IStore>(Store);
+  // const { editedItem } = store;
   const [currentBtn, setCurrentBtn] = React.useState<
     typeof btnsLeft[0] | null
   >();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [{ canDrop, isOver }, drop] = useDrop({
     accept: 'box',
     drop(item: DragItem, monitor) {
@@ -78,29 +71,13 @@ export const Plan: React.FunctionComponent = () => {
 
   const [boxes, setBoxes] = React.useState<{
     [key: string]: {
+      id: string;
       top: number;
       left: number;
       title: string;
       name: svgTypes['tp'];
     };
-  }>({
-    // a: { top: 20, left: 80, title: 'Drag me around' },
-    // b: { top: 180, left: 20, title: 'Drag me too' },
-  });
-
-  // const {
-  //   itemType,
-  //   isDragging,
-  //   item,
-  //   initialOffset,
-  //   currentOffset,
-  // } = useDragLayer((monitor) => ({
-  //   item: monitor.getItem(),
-  //   itemType: monitor.getItemType(),
-  //   initialOffset: monitor.getInitialSourceClientOffset(),
-  //   currentOffset: monitor.getSourceClientOffset(),
-  //   isDragging: monitor.isDragging(),
-  // }));
+  }>({});
 
   const moveBox = (
     id: string,
@@ -108,11 +85,27 @@ export const Plan: React.FunctionComponent = () => {
     top: number,
     name: svgTypes['tp']
   ) => {
+    let leftPos = left;
+    let topPos = top;
+    if (left > 905) {
+      leftPos = 905;
+    }
+
+    if (left < 0) {
+      leftPos = 0;
+    }
+    if (top < 0) {
+      topPos = 0;
+    }
+    if (top > 754) {
+      topPos = 754;
+    }
+
     if (boxes[id]) {
       setBoxes(
         update(boxes, {
           [id]: {
-            $merge: { left, top },
+            $merge: { left: leftPos, top: topPos },
           },
         })
       );
@@ -121,9 +114,10 @@ export const Plan: React.FunctionComponent = () => {
         update(boxes, {
           [id]: {
             $set: {
-              top,
-              left,
+              top: topPos,
+              left: leftPos,
               title: id,
+              id,
               name,
             },
           },
@@ -141,19 +135,27 @@ export const Plan: React.FunctionComponent = () => {
             <PlanHeader setCurrentBtn={setCurrentBtn} />
             <PlanBodyS ref={drop}>
               {Object.keys(boxes).map((key) => {
-                const { left, top, title, name } = boxes[key];
+                const { left, top, name } = boxes[key];
                 return (
                   <Box
+                    itm={boxes[key]}
                     key={key}
                     id={key}
                     left={left}
                     top={top}
                     name={name}
+                    removeBox={() =>
+                      setBoxes((oldBoxes) => {
+                        delete oldBoxes[key];
+                        return oldBoxes;
+                      })
+                    }
                     updatePosition={(newTop, newLeft) => {
                       setBoxes(
                         update(boxes, {
                           [key]: {
                             $set: {
+                              id: key,
                               top: newTop,
                               left: newLeft,
                               title: key,

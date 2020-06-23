@@ -1,3 +1,5 @@
+import { svgTypes } from '../global/svgTypes';
+
 export interface IModal {
   help?: boolean;
   dataPlan?: boolean;
@@ -14,6 +16,7 @@ export interface IUser {
 
 export interface IState {
   user: IUser | null;
+  editedItem: IBox | null;
   modal: IModal;
   editMode: boolean;
   transformApply: boolean;
@@ -38,6 +41,12 @@ export interface ISetNameAction {
 export interface IModalAction {
   payload: IModal;
 }
+export interface IBox {
+  id: string;
+  left: number;
+  top: number;
+  name: svgTypes['tp'];
+}
 
 export enum EActionTypes {
   SET_LOADING = 'SET_LOADING',
@@ -47,5 +56,7 @@ export enum EActionTypes {
   RESET_MODAL = 'RESET_MODAL',
   HELP_MODAL = 'HELP_MODAL',
   SET_EDIT_MODE = 'SET_EDIT_MODE',
+  SET_EDIT_ITEM = 'SET_EDIT_ITEM',
+  DELETE_EDIT_ITEM = 'DELETE_EDIT_ITEM',
   TRANSFORM_APPLY = 'TRANSFORM_APPLY',
 }

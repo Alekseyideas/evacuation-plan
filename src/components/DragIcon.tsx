@@ -1,5 +1,5 @@
-import React, { ReactElement } from 'react';
-import { useDrag, DragSourceMonitor, DragPreviewImage } from 'react-dnd';
+import React from 'react';
+import { useDrag, DragSourceMonitor } from 'react-dnd';
 import { ButtonIconS, ButtonTitleS } from '../pages/PlanStyle';
 import { btnsLeft } from '../utils/constructorBtns';
 
@@ -9,6 +9,7 @@ interface Props {
 }
 
 export const DragIcon: React.FC<Props> = ({ btn, setCurrentBtn }) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [{ isDragging }, drag] = useDrag({
     item: { name: btn.name, type: 'box' },
     end: (item: { name: string } | undefined, monitor: DragSourceMonitor) => {

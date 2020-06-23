@@ -1,9 +1,8 @@
 import React from 'react';
 import { useDrag } from 'react-dnd';
 import { svgTypes } from '../global/svgTypes';
-import exit from '../assets/images/planIcons/exit.svg';
 import { Resizable } from 're-resizable';
-import { IStore } from '../store/types';
+import { IStore, IBox } from '../store/types';
 import { Store } from '../store';
 import StoreAction from '../store/StoreAction';
 import { PrevExit } from './svg/PrevExit';
@@ -20,6 +19,10 @@ import { PrevStina } from './svg/PrevStina';
 import { PrevDveri } from './svg/PrevDveri';
 import { PrevVikno } from './svg/PrevVikno';
 import { PrevShodi } from './svg/PrevShodi';
+import { BoxBtnsS } from './styles';
+import { CheckIcon } from './svg/CheckIcon';
+import { RotateIcon } from './svg/RotateIcon';
+import { DeleteIcon } from './svg/Del';
 const style: React.CSSProperties = {
   position: 'absolute',
   // border: '1px dashed gray',
@@ -27,23 +30,27 @@ const style: React.CSSProperties = {
   // padding: '0.5rem 1rem',
   // cursor: 'move',
 };
-
+const defPad = 5;
 export interface BoxProps {
+  itm: IBox;
   id: any;
   left: number;
   top: number;
   name: svgTypes['tp'];
   hideSourceOnDrag?: boolean;
   updatePosition: (top: number, left: number) => void;
+  removeBox: () => void;
 }
 
 export const Box: React.FC<BoxProps> = ({
   id,
+  itm,
   left,
   top,
   hideSourceOnDrag,
   children,
   name,
+  removeBox,
   updatePosition,
 }) => {
   const [{ isDragging }, drag] = useDrag({
@@ -52,7 +59,7 @@ export const Box: React.FC<BoxProps> = ({
       isDragging: monitor.isDragging(),
     }),
   });
-  const { store, dispatch } = React.useContext<IStore>(Store);
+  const { dispatch } = React.useContext<IStore>(Store);
   // const { editMode } = store;
   const Action = new StoreAction(dispatch);
   const [oldWidth, setOldWidth] = React.useState(0);
@@ -60,7 +67,18 @@ export const Box: React.FC<BoxProps> = ({
   const [oldHeight, setOldHeight] = React.useState(0);
   const [width, setWidth] = React.useState(0);
   const [height, setHeight] = React.useState(0);
-  const ref = React.useRef(null);
+  const ref = React.useRef<any>(null);
+  const [rotation, setRotation] = React.useState(0);
+  const [deleted, setDeleted] = React.useState(false);
+  // const [resH, setResH] = React.useState(0);
+  // const [resW, setResW] = React.useState(0);
+  // const [resT, setResT] = React.useState(0);
+  // const [resL, setResL] = React.useState(0);
+
+  const [dirTop, setDirTop] = React.useState(false);
+
+  const [dirRight, setDirRight] = React.useState(false);
+  const isVert = rotation === 90 || rotation === 270;
 
   React.useEffect(() => {
     const initialSet = (w: number, h: number) => {
@@ -89,13 +107,13 @@ export const Box: React.FC<BoxProps> = ({
         break;
       case 'vnutrStina':
       case 'zovnStina':
-        initialSet(40, 15);
+        initialSet(100, 12);
         break;
       case 'vikV':
       case 'vikZ':
       case 'dvOtvirZ':
       case 'dvOtvirV':
-        initialSet(100, 15);
+        initialSet(100, 12);
         break;
       case 'shodi':
         initialSet(100, 60);
@@ -103,16 +121,31 @@ export const Box: React.FC<BoxProps> = ({
       default:
         initialSet(90, 45);
     }
-  }, [name]);
-  React.useEffect(() => {
-    if (editMode) {
-      document.querySelector('#rightBtn-2')?.addEventListener('click', () => {
-        console.log(132);
-        setEditMode(false);
-        // updatePosition(745 - oldHeight - oh, left);
-      });
-    }
-  }, [editMode]);
+  }, [isVert, name]);
+
+  const saveHandler = () => {
+    setEditMode(false);
+  };
+
+  const rotateHandler = () => {
+    setRotation((oldVal) => {
+      const newV = oldVal + 90;
+      if (ref && ref.current) {
+        if (newV === 90 || newV === 270) {
+          ref.current.updateSize({
+            width: height + defPad,
+            height: width + defPad,
+          });
+        } else {
+          ref.current.updateSize({
+            width: width + defPad,
+            height: height + defPad,
+          });
+        }
+      }
+      return newV === 360 ? 0 : newV;
+    });
+  };
 
   if (isDragging && hideSourceOnDrag) {
     return <div ref={drag} />;
@@ -179,71 +212,170 @@ export const Box: React.FC<BoxProps> = ({
       renderSrc = null;
   }
 
+  if (deleted) return null;
   if (isDragging) {
-    return <div ref={drag} />;
+    return <div ref={drag} style={{ transform: `rotate(-${rotation}deg)` }} />;
   }
+
   if (editMode) {
     return (
       <Resizable
         className="31232131"
         ref={ref}
+        enable={{
+          top: false,
+          right: true,
+          bottom: true,
+          left: false,
+          topRight: false,
+          bottomRight: true,
+          bottomLeft: false,
+          topLeft: false,
+        }}
         style={{
           border: '1px solid',
-          padding: '10px',
+          padding: '1px',
           position: 'absolute',
           left,
           top,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          // bottom: !t ? oh : 'inherit',
+          // bottom: dirTop ? 745 - resH - resT : 'inherit',
+          // top: !dirTop ? top : 'inherit',
+          // right: !dirRight ? right : 'inherit',
+          // left: dirRight ? 950 - right - resW : 'inherit',
         }}
-        minHeight={33}
-        minWidth={40}
+        minHeight={10}
+        minWidth={10}
         onResizeStop={(e, direction, ref, d) => {
-          // if (!editMode) seOhL(745 - oldHeight - top);
-          setOldWidth((oldWidth) => oldWidth + d.width);
-          setOldHeight((oldHeight) => oldHeight + d.height);
+          if (isVert) {
+            setOldWidth((oldWidth2) => oldWidth2 + d.height);
+            setOldHeight((oldHeight2) => oldHeight2 + d.width);
+          } else {
+            setOldWidth((oldWidth2) => oldWidth2 + d.width);
+            setOldHeight((oldHeight2) => oldHeight2 + d.height);
+          }
         }}
         onResize={(e, direction, ref, d) => {
-          if (
-            direction === 'bottomLeft' ||
-            direction === 'bottom' ||
-            direction === 'bottomRight'
-          ) {
+          const dir = direction.toLocaleLowerCase();
+          if (dir.includes('top')) {
+            if (!dirTop) {
+              setDirTop(true);
+            }
           }
-          if (
-            direction === 'top' ||
-            direction === 'topLeft' ||
-            direction === 'topRight'
-          ) {
+          if (dir.includes('bottom')) {
+            if (dirTop) {
+              setDirTop(false);
+            }
           }
-          if (d.width + oldWidth > 10 && d.height + oldHeight > 10) {
-            setWidth(() => d.width + oldWidth);
-            setHeight(() => d.height + oldHeight);
+
+          if (dir.includes('left')) {
+            if (dirRight) {
+              setDirRight(false);
+            }
+          }
+          if (dir.includes('right')) {
+            if (!dirRight) {
+              setDirRight(true);
+            }
+          }
+
+          if (isVert) {
+            // setResH(d.height + oldWidth);
+            // setResW(d.width + oldHeight);
+            setWidth(() => d.height + oldWidth);
+            setHeight(() => d.width + oldHeight);
+          } else {
+            // setResH(d.width + oldWidth);
+            // setResW(d.height + oldHeight);
+            if (d.width + oldWidth > 10 && d.height + oldHeight > 10) {
+              setWidth(() => d.width + oldWidth);
+              setHeight(() => d.height + oldHeight);
+            }
           }
         }}
         defaultSize={{
-          width: width + 20,
-          height: height + 20,
+          width: isVert ? height + defPad : width + defPad,
+          height: isVert ? width + defPad : height + defPad,
         }}
       >
-        {renderSrc}
+        <BoxBtnsS
+          style={{
+            bottom: top >= 30 ? '100%' : 'initial',
+            top: top < 30 ? '100%' : 'initial',
+          }}
+        >
+          <button onClick={saveHandler}>
+            <CheckIcon />
+          </button>
+          <button onClick={rotateHandler}>
+            <RotateIcon />
+          </button>
+          <button
+            onClick={() => {
+              setEditMode(false);
+              setDeleted(true);
+              removeBox();
+            }}
+          >
+            <DeleteIcon />
+          </button>
+        </BoxBtnsS>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transform: `rotate(-${rotation}deg)`,
+          }}
+        >
+          {renderSrc}
+        </div>
       </Resizable>
     );
   }
-
   return (
     <div
       ref={drag}
-      style={{ ...style, left, top, width, height }}
+      style={{
+        ...style,
+        left,
+        top,
+        // width,
+        // height,
+        width: isVert ? height : width,
+        height: isVert ? width : height,
+        // transform: `rotate(-${rotation}deg)`,\
+        transform: `rotate(-${rotation}deg)`,
+      }}
       onClick={() => {
+        // setResH(height);
+        // setResW(width);
+        // setResT(top);
+        // setResL(left);
+
         Action.setApply(false);
         Action.setEditMode(true);
+        Action.setEditItem(itm);
         setEditMode(true);
       }}
     >
-      {renderSrc}
+      <div
+        style={{
+          // transform: isVert
+          // ? `rotate(-${rotation}deg)`
+          // : `rotate(-${rotation}deg)`,
+          // transform: `rotate(-${rotation - 90}deg)`,
+          width,
+          height,
+          position: isVert ? 'absolute' : 'relative',
+          top: '0',
+          left: '0',
+        }}
+      >
+        {renderSrc}
+      </div>
     </div>
   );
 };

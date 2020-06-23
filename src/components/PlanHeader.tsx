@@ -2,16 +2,15 @@ import * as React from 'react';
 import {
   PlanHeaderS,
   LeftBtnsWrapperS,
-  ButtonIconS,
-  RightBtnsWrapperS,
-  ButtonTitleS,
+  // ButtonIconS,
+  // RightBtnsWrapperS,
+  // ButtonTitleS,
 } from '../pages/PlanStyle';
-import { btnsLeft, btnsRight } from '../utils/constructorBtns';
-import { useDrag, DragSourceMonitor, useDrop, XYCoord } from 'react-dnd';
+import { btnsLeft } from '../utils/constructorBtns';
 import { DragIcon } from './DragIcon';
-import { Store } from '../store';
-import { IStore } from '../store/types';
-import StoreAction from '../store/StoreAction';
+// import { Store } from '../store';
+// import { IStore } from '../store/types';
+// import StoreAction from '../store/StoreAction';
 
 interface IPlanHeaderProps {
   setCurrentBtn: (btn: typeof btnsLeft[0] | null) => void;
@@ -20,9 +19,9 @@ interface IPlanHeaderProps {
 const PlanHeader: React.FunctionComponent<IPlanHeaderProps> = ({
   setCurrentBtn,
 }) => {
-  const { store, dispatch } = React.useContext<IStore>(Store);
+  // const { dispatch } = React.useContext<IStore>(Store);
   // const { editMode } = store;
-  const Action = new StoreAction(dispatch);
+  // const Action = new StoreAction(dispatch);
 
   // const [{ isDragging }, drag] = useDrag({
   //   item: { name: 'Banana', type: 'box', pos: 1 },
@@ -62,7 +61,7 @@ const PlanHeader: React.FunctionComponent<IPlanHeaderProps> = ({
           );
         })}
       </LeftBtnsWrapperS>
-      <RightBtnsWrapperS>
+      {/* <RightBtnsWrapperS>
         {btnsRight.map((btn) => {
           const clickFn = () => {
             if (btn.id === 2) {
@@ -86,7 +85,7 @@ const PlanHeader: React.FunctionComponent<IPlanHeaderProps> = ({
             </ButtonIconS>
           );
         })}
-      </RightBtnsWrapperS>
+      </RightBtnsWrapperS> */}
     </PlanHeaderS>
   );
 };

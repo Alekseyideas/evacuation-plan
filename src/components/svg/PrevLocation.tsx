@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 interface IProps {
   w: number;
   h: number;
@@ -114,29 +113,3 @@ export const PrevLocation = ({ w, h }: IProps) => {
     </svg>
   );
 };
-
-const WrapperS = styled.div`
-  position: relative;
-  background-color: orange;
-  text-align: left;
-  width: 10em;
-  height: 10em;
-  border-top-right-radius: 30%;
-  transform: rotate(-60deg) skewX(-30deg) scale(1, 0.866);
-
-  &::before {
-    transform: rotate(-135deg) skewX(-45deg) scale(1.414, 0.707)
-      translate(0, -50%);
-  }
-  &::after {
-    transform: rotate(135deg) skewY(-45deg) scale(0.707, 1.414) translate(50%);
-  }
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    background-color: inherit;
-    width: 100%;
-    height: 100%;
-  }
-`;

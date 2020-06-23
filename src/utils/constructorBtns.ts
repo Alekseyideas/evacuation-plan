@@ -19,6 +19,8 @@ import { Shodi } from '../components/svg/Shodi';
 import { DeleteIcon } from '../components/svg/Del';
 // import { CleanIcon } from '../components/svg/CleanIcon';
 import { Tel } from '../components/svg/Tel';
+import { CheckIcon } from '../components/svg/CheckIcon';
+import { RotateIcon } from '../components/svg/RotateIcon';
 
 export const btnsLeft = [
   {
@@ -210,11 +212,20 @@ export const btnsRight = [
     link: '',
   },
   {
-    title: 'Примениить',
-    name: 'deleteIcon',
+    title: 'Перевернуть',
+    name: 'rotateIcon',
     desc:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
-    icon: DeleteIcon,
+    icon: RotateIcon,
+    id: 3,
+    link: '',
+  },
+  {
+    title: 'Примениить',
+    name: 'checkIcon',
+    desc:
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
+    icon: CheckIcon,
     id: 2,
     link: '',
   },

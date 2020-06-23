@@ -6,7 +6,7 @@ interface IProps {
   r?: number;
 }
 
-export const PrevExit = ({ w, h, r }: IProps) => {
+export const PrevExit90deg = ({ w, h, r }: IProps) => {
   return (
     <svg
       version="1.1"
@@ -15,7 +15,7 @@ export const PrevExit = ({ w, h, r }: IProps) => {
       width={w}
       height={h}
       viewBox="0 0 623.622 311.811"
-      style={{ background: '#00A651', transform: `rotation(-${r})deg` }}
+      style={{ background: 'red', transform: `rotate(-90deg)` }}
     >
       <g id="контур" display="none">
         <g display="inline">

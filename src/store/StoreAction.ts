@@ -1,4 +1,4 @@
-import { IAction, EActionTypes, IModal, IUser } from './types';
+import { IAction, EActionTypes, IModal, IUser, IBox } from './types';
 export default class StoreAction {
   dispatch: IAction | any;
   constructor(dispatch: IAction | any) {
@@ -37,5 +37,14 @@ export default class StoreAction {
     this.dispatch({
       type: EActionTypes.TRANSFORM_APPLY,
       payload,
+    });
+  public setEditItem = (payload: IBox) =>
+    this.dispatch({
+      type: EActionTypes.SET_EDIT_ITEM,
+      payload,
+    });
+  public deleteEditItem = () =>
+    this.dispatch({
+      type: EActionTypes.DELETE_EDIT_ITEM,
     });
 }
