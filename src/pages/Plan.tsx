@@ -87,7 +87,7 @@ export const Plan: React.FunctionComponent = () => {
   ) => {
     let leftPos = left;
     let topPos = top;
-    if (left > 905) {
+    if (left > 1005) {
       leftPos = 905;
     }
 
@@ -127,7 +127,6 @@ export const Plan: React.FunctionComponent = () => {
   };
 
   return (
-    // <DndProvider backend={HTML5Backend}>
     <MainWrapperS>
       <div className="container">
         <PlanWrapperS>
@@ -151,19 +150,7 @@ export const Plan: React.FunctionComponent = () => {
                       })
                     }
                     updatePosition={(newTop, newLeft) => {
-                      setBoxes(
-                        update(boxes, {
-                          [key]: {
-                            $set: {
-                              id: key,
-                              top: newTop,
-                              left: newLeft,
-                              title: key,
-                              name,
-                            },
-                          },
-                        })
-                      );
+                      moveBox(key, newTop, newLeft, name);
                     }}
                   />
                 );
@@ -205,6 +192,5 @@ export const Plan: React.FunctionComponent = () => {
         </PlanWrapperS>
       </div>
     </MainWrapperS>
-    // </DndProvider>
   );
 };

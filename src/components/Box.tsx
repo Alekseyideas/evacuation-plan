@@ -125,6 +125,10 @@ export const Box: React.FC<BoxProps> = ({
 
   const saveHandler = () => {
     setEditMode(false);
+    if (isVert) {
+      console.log(top, left);
+      // updatePosition(top + width, left + height);
+    }
   };
 
   const rotateHandler = () => {
@@ -335,6 +339,9 @@ export const Box: React.FC<BoxProps> = ({
       </Resizable>
     );
   }
+  const heightHalf = height / 2;
+  const heightHalfx2 = height + height / 2;
+
   return (
     <div
       ref={drag}
@@ -342,19 +349,11 @@ export const Box: React.FC<BoxProps> = ({
         ...style,
         left,
         top,
-        // width,
-        // height,
         width: isVert ? height : width,
         height: isVert ? width : height,
-        // transform: `rotate(-${rotation}deg)`,\
-        transform: `rotate(-${rotation}deg)`,
+        // transform: `rotate(-${rotation}deg)`,
       }}
       onClick={() => {
-        // setResH(height);
-        // setResW(width);
-        // setResT(top);
-        // setResL(left);
-
         Action.setApply(false);
         Action.setEditMode(true);
         Action.setEditItem(itm);
@@ -366,12 +365,22 @@ export const Box: React.FC<BoxProps> = ({
           // transform: isVert
           // ? `rotate(-${rotation}deg)`
           // : `rotate(-${rotation}deg)`,
-          // transform: `rotate(-${rotation - 90}deg)`,
+          transform: `rotate(-${rotation}deg) ${
+            isVert && rotation !== 270
+              ? `translate(calc(-100% + ${heightHalf}px), 50%)`
+              : rotation === 180
+              ? `translate(-100%, calc(50% - ${heightHalf}px))`
+              : isVert && rotation === 270
+              ? `translate(calc(-100% + ${heightHalfx2}px), calc(-100% + ${heightHalf}px))`
+              : ''
+          }`,
           width,
           height,
-          position: isVert ? 'absolute' : 'relative',
-          top: '0',
-          left: '0',
+          transformOrigin: 'left',
+          // position: isVert ? 'absolute' : 'relative',
+          // position: isVert ? 'absolute' : 'relative',
+          // top: '0',
+          // left: '0',
         }}
       >
         {renderSrc}
