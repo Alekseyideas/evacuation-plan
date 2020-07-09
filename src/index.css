@@ -36,3 +36,7 @@ header {
   padding-top: 5px;
   padding-bottom: 5px;
 }
+
+.container {
+  max-width: 1330px;
+}

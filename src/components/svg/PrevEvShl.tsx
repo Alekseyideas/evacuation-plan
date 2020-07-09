@@ -11,7 +11,7 @@ export const PrevEvShl = ({ w, h }: IProps) => {
 };
 
 const WrapperS = styled.div`
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  /* border: 1px solid rgba(0, 0, 0, 0.15); */
   border-radius: 5px;
   display: flex;
   justify-content: center;

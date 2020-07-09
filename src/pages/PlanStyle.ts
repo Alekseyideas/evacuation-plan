@@ -16,12 +16,17 @@ export const PlanHeaderS = styled.div`
   z-index: 2;
   position: relative;
 `;
-export const PlanBodyS = styled.div`
+export const PlanBodyS = styled.div<{ genPdf: boolean }>`
   display: block;
   position: relative;
-  --nr: 44; /* number of rows */
-  --nc: 52; /* number of columns */
-  --b: 1px; /* border length */
+  border: 1px solid rgb(83, 83, 83);
+  ${({ genPdf }) =>
+    !genPdf
+      ? `
+	border: 1px solid rgb(83, 83, 83);
+	--nr: 44;
+  --nc: 52;
+  --b: 1px;
 
   --g: transparent calc(100% - var(--b)), rgba(83, 83, 83, 0.2) 0;
   background: linear-gradient(to right, var(--g)),
@@ -31,10 +36,12 @@ export const PlanBodyS = styled.div`
       )
       100%,
     100% calc((100% - var(--b) * (var(--nr) - 1)) / var(--nr) + var(--b));
+	`
+      : null}
 
   width: 100%;
-  height: 768px;
-  border: 1px solid rgb(83, 83, 83);
+  height: 675px;
+
   margin-top: 5px;
   /* overflow: hidden; */
 `;
@@ -48,6 +55,7 @@ export const RightColS = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
+  position: relative;
   h2 {
     margin-top: 0;
     color: #000;
@@ -142,4 +150,8 @@ export const BtnColorS = styled.button<{ active?: boolean }>`
 
 	`
       : null}
+`;
+
+export const WRS = styled.div<{ grey?: boolean }>`
+  /* filter: grayscale(100%); */
 `;

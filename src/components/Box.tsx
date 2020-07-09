@@ -25,10 +25,6 @@ import { RotateIcon } from './svg/RotateIcon';
 import { DeleteIcon } from './svg/Del';
 const style: React.CSSProperties = {
   position: 'absolute',
-  // border: '1px dashed gray',
-  // backgroundColor: 'white',
-  // padding: '0.5rem 1rem',
-  // cursor: 'move',
 };
 const defPad = 5;
 export interface BoxProps {
@@ -70,11 +66,10 @@ export const Box: React.FC<BoxProps> = ({
   const ref = React.useRef<any>(null);
   const [rotation, setRotation] = React.useState(0);
   const [deleted, setDeleted] = React.useState(false);
-  // const [resH, setResH] = React.useState(0);
-  // const [resW, setResW] = React.useState(0);
-  // const [resT, setResT] = React.useState(0);
-  // const [resL, setResL] = React.useState(0);
-
+  const [minHeight, setMinHeight] = React.useState(10);
+  const [minWidth, setMinWidth] = React.useState(10);
+  const [maxHeight, setMaxHeight] = React.useState(0);
+  const [maxWidth, setMaxWidth] = React.useState(0);
   const [dirTop, setDirTop] = React.useState(false);
 
   const [dirRight, setDirRight] = React.useState(false);
@@ -87,6 +82,8 @@ export const Box: React.FC<BoxProps> = ({
       setWidth(w);
       setHeight(h);
     };
+    setMinHeight(0);
+    setMaxHeight(0);
     switch (name) {
       case 'exit':
       case 'zExit':
@@ -105,15 +102,19 @@ export const Box: React.FC<BoxProps> = ({
       case 'tel':
         initialSet(40, 40);
         break;
-      case 'vnutrStina':
-      case 'zovnStina':
-        initialSet(100, 12);
-        break;
       case 'vikV':
+      case 'dvOtvirV':
+      case 'vnutrStina':
+        initialSet(100, 12);
+        setMinHeight(12);
+        setMaxHeight(12);
+        break;
       case 'vikZ':
       case 'dvOtvirZ':
-      case 'dvOtvirV':
-        initialSet(100, 12);
+      case 'zovnStina':
+        initialSet(100, 18);
+        setMinHeight(18);
+        setMaxHeight(18);
         break;
       case 'shodi':
         initialSet(100, 60);
@@ -121,7 +122,7 @@ export const Box: React.FC<BoxProps> = ({
       default:
         initialSet(90, 45);
     }
-  }, [isVert, name]);
+  }, [name]);
 
   const saveHandler = () => {
     setEditMode(false);
@@ -245,13 +246,11 @@ export const Box: React.FC<BoxProps> = ({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          // bottom: dirTop ? 745 - resH - resT : 'inherit',
-          // top: !dirTop ? top : 'inherit',
-          // right: !dirRight ? right : 'inherit',
-          // left: dirRight ? 950 - right - resW : 'inherit',
         }}
-        minHeight={10}
-        minWidth={10}
+        minHeight={minHeight || undefined}
+        minWidth={minWidth || undefined}
+        maxHeight={isVert ? undefined : maxHeight || undefined}
+        maxWidth={isVert ? maxHeight || undefined : undefined}
         onResizeStop={(e, direction, ref, d) => {
           if (isVert) {
             setOldWidth((oldWidth2) => oldWidth2 + d.height);

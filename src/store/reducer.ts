@@ -63,6 +63,16 @@ export default function reducer(state: IState, action: IAction): IState {
         ...state,
         editedItem: null,
       };
+    case EActionTypes.SET_PLAN_INFO:
+      return {
+        ...state,
+        date: action.payload.date,
+        pib: action.payload.pib,
+        posada: action.payload.posada,
+        namePid: action.payload.namePid,
+        namePrim: action.payload.namePrim,
+        editedItem: null,
+      };
     default:
       return state;
   }

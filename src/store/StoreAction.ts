@@ -1,4 +1,4 @@
-import { IAction, EActionTypes, IModal, IUser, IBox } from './types';
+import { IAction, EActionTypes, IModal, IUser, IBox, IPlanInfo } from './types';
 export default class StoreAction {
   dispatch: IAction | any;
   constructor(dispatch: IAction | any) {
@@ -46,5 +46,11 @@ export default class StoreAction {
   public deleteEditItem = () =>
     this.dispatch({
       type: EActionTypes.DELETE_EDIT_ITEM,
+    });
+
+  public setPlanInfo = (payload: IPlanInfo) =>
+    this.dispatch({
+      type: EActionTypes.SET_PLAN_INFO,
+      payload,
     });
 }

@@ -8,6 +8,7 @@ import {
   RightBtnsControls,
   ColorWrapperControlsS,
   BtnColorS,
+  WRS,
 } from './PlanStyle';
 import { btnsLeft } from '../utils/constructorBtns';
 import { useDrop, XYCoord } from 'react-dnd';
@@ -16,6 +17,11 @@ import update from 'immutability-helper';
 import { snapToGrid as doSnapToGrid } from '../utils/snapToGrid';
 import PlanHeader from '../components/PlanHeader';
 import { svgTypes } from '../global/svgTypes';
+import { usePdfGen } from '../hooks/usePdfGen';
+import { PdfHeader } from '../components/PdfHeader';
+import { PdfPlanInfo } from '../components/PdfPlanInfo';
+import { PdfRightTop } from '../components/PdfRightTop';
+import Loader from '../components/Loader';
 // import { IStore } from '../store/types';
 // import { Store } from '../store';
 
@@ -37,7 +43,13 @@ export interface DragItem {
 
 export const Plan: React.FunctionComponent = () => {
   // const { store } = React.useContext<IStore>(Store);
-  // const { editedItem } = store;
+  // const { editedItem } = store;\\
+  const [isPdfGen, setIsPdfGen] = React.useState(false);
+  const [isBlackAndWhite, setIsBlackAndWhite] = React.useState(false);
+  const { downloadHandler, loading: pdfGenLoading, setLoading } = usePdfGen(
+    ['plan'],
+    () => setIsPdfGen(false)
+  );
   const [currentBtn, setCurrentBtn] = React.useState<
     typeof btnsLeft[0] | null
   >();
@@ -68,6 +80,12 @@ export const Plan: React.FunctionComponent = () => {
       canDrop: monitor.canDrop(),
     }),
   });
+
+  // React.useEffect(() => {
+  //   if (!pdfGenLoading && isPdfGen) {
+  //     setIsPdfGen(false);
+  //   }
+  // }, [isPdfGen, pdfGenLoading]);
 
   const [boxes, setBoxes] = React.useState<{
     [key: string]: {
@@ -128,68 +146,106 @@ export const Plan: React.FunctionComponent = () => {
 
   return (
     <MainWrapperS>
-      <div className="container">
-        <PlanWrapperS>
-          <PlanS className="planWrapper">
-            <PlanHeader setCurrentBtn={setCurrentBtn} />
-            <PlanBodyS ref={drop}>
-              {Object.keys(boxes).map((key) => {
-                const { left, top, name } = boxes[key];
-                return (
-                  <Box
-                    itm={boxes[key]}
-                    key={key}
-                    id={key}
-                    left={left}
-                    top={top}
-                    name={name}
-                    removeBox={() =>
-                      setBoxes((oldBoxes) => {
-                        delete oldBoxes[key];
-                        return oldBoxes;
-                      })
-                    }
-                    updatePosition={(newTop, newLeft) => {
-                      moveBox(key, newTop, newLeft, name);
-                    }}
-                  />
-                );
-              })}
-            </PlanBodyS>
-          </PlanS>
-
-          <RightColS>
-            <div>
-              <h2>{currentBtn?.title}</h2>
-              <p>{currentBtn?.desc}</p>
-              {currentBtn?.link ? (
-                <p>
-                  Детальна iнформацiя: <br />{' '}
-                  <a
-                    href={currentBtn.link}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    {currentBtn.link}
-                  </a>
-                </p>
+      {pdfGenLoading ? <Loader /> : null}
+      <div
+        className="container"
+        id="plan"
+        style={{
+          position: 'relative',
+        }}
+      >
+        <WRS>
+          {isPdfGen ? <PdfHeader /> : null}
+          <PlanWrapperS>
+            <PlanS className="planWrapper">
+              {!isPdfGen ? <PlanHeader setCurrentBtn={setCurrentBtn} /> : null}
+              <PlanBodyS ref={drop} genPdf={isPdfGen}>
+                {Object.keys(boxes).map((key) => {
+                  const { left, top, name } = boxes[key];
+                  return (
+                    <Box
+                      itm={boxes[key]}
+                      key={key}
+                      id={key}
+                      left={left}
+                      top={top}
+                      name={name}
+                      removeBox={() =>
+                        setBoxes((oldBoxes) => {
+                          delete oldBoxes[key];
+                          return oldBoxes;
+                        })
+                      }
+                      updatePosition={(newTop, newLeft) => {
+                        moveBox(key, newTop, newLeft, name);
+                      }}
+                    />
+                  );
+                })}
+              </PlanBodyS>
+              {isPdfGen ? (
+                <h2 style={{ fontSize: '30px', color: 'red' }}>
+                  При пожежi зателефонуйте 101
+                </h2>
               ) : null}
-            </div>
-            <RightBtnsControls>
-              <ColorWrapperControlsS>
-                <BtnColorS active>Колiр</BtnColorS>
-                <BtnColorS>Чорно-бiлий</BtnColorS>
-              </ColorWrapperControlsS>
+            </PlanS>
 
-              <button
-                className="btn btn-def"
-                style={{ width: '100%', marginTop: '10px' }}
-              >
-                Друкувати
-              </button>
-            </RightBtnsControls>
-          </RightColS>
-        </PlanWrapperS>
+            <RightColS>
+              {isPdfGen ? (
+                <>
+                  <PdfPlanInfo />
+                </>
+              ) : null}
+              <div>
+                <h2>{currentBtn?.title}</h2>
+                <p>{currentBtn?.desc}</p>
+                {currentBtn?.link ? (
+                  <p>
+                    Детальна iнформацiя: <br />{' '}
+                    <a
+                      href={currentBtn.link}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      {currentBtn.link}
+                    </a>
+                  </p>
+                ) : null}
+              </div>
+              {!isPdfGen ? (
+                <RightBtnsControls>
+                  {/* <ColorWrapperControlsS>
+                    <BtnColorS
+                      active={!isBlackAndWhite}
+                      onClick={() => setIsBlackAndWhite(false)}
+                    >
+                      Колiр
+                    </BtnColorS>
+                    <BtnColorS
+                      active={isBlackAndWhite}
+                      onClick={() => setIsBlackAndWhite(true)}
+                    >
+                      Чорно-бiлий
+                    </BtnColorS>
+                  </ColorWrapperControlsS> */}
+                  <button
+                    className="btn btn-def"
+                    style={{ width: '100%', marginTop: '10px' }}
+                    onClick={() => {
+                      setLoading(true);
+                      setIsPdfGen(true);
+                      setTimeout(() => {
+                        downloadHandler();
+                      }, 500);
+                    }}
+                  >
+                    Друкувати
+                  </button>
+                </RightBtnsControls>
+              ) : null}
+            </RightColS>
+          </PlanWrapperS>
+        </WRS>
       </div>
     </MainWrapperS>
   );

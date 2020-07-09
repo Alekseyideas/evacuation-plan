@@ -16,6 +16,11 @@ export interface IUser {
 
 export interface IState {
   user: IUser | null;
+  namePid: string;
+  namePrim: string;
+  posada: string;
+  pib: string;
+  date: string;
   editedItem: IBox | null;
   modal: IModal;
   editMode: boolean;
@@ -48,6 +53,14 @@ export interface IBox {
   name: svgTypes['tp'];
 }
 
+export interface IPlanInfo {
+  namePid: string;
+  namePrim: string;
+  posada: string;
+  pib: string;
+  date: string;
+}
+
 export enum EActionTypes {
   SET_LOADING = 'SET_LOADING',
   SET_USER = 'SET_USER',
@@ -59,4 +72,5 @@ export enum EActionTypes {
   SET_EDIT_ITEM = 'SET_EDIT_ITEM',
   DELETE_EDIT_ITEM = 'DELETE_EDIT_ITEM',
   TRANSFORM_APPLY = 'TRANSFORM_APPLY',
+  SET_PLAN_INFO = 'SET_PLAN_INFO',
 }
