@@ -90,6 +90,7 @@ export const PlanDataModal = () => {
           <label>Дата затвердження Плану:</label>
           <input
             type="date"
+            pattern="\d{1,2}/\d{1,2}/\d{4}"
             name={field5}
             value={form[field5].value}
             onChange={onChangeHandler}

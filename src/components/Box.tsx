@@ -26,7 +26,7 @@ import { DeleteIcon } from './svg/Del';
 const style: React.CSSProperties = {
   position: 'absolute',
 };
-const defPad = 5;
+const defPad = 0;
 export interface BoxProps {
   itm: IBox;
   id: any;
@@ -238,8 +238,8 @@ export const Box: React.FC<BoxProps> = ({
           topLeft: false,
         }}
         style={{
-          border: '1px solid',
-          padding: '1px',
+          boxShadow: '0 0 0 1px yellow',
+          padding: '0',
           position: 'absolute',
           left,
           top,
@@ -350,7 +350,6 @@ export const Box: React.FC<BoxProps> = ({
         top,
         width: isVert ? height : width,
         height: isVert ? width : height,
-        // transform: `rotate(-${rotation}deg)`,
       }}
       onClick={() => {
         Action.setApply(false);
@@ -361,9 +360,6 @@ export const Box: React.FC<BoxProps> = ({
     >
       <div
         style={{
-          // transform: isVert
-          // ? `rotate(-${rotation}deg)`
-          // : `rotate(-${rotation}deg)`,
           transform: `rotate(-${rotation}deg) ${
             isVert && rotation !== 270
               ? `translate(calc(-100% + ${heightHalf}px), 50%)`
@@ -376,10 +372,6 @@ export const Box: React.FC<BoxProps> = ({
           width,
           height,
           transformOrigin: 'left',
-          // position: isVert ? 'absolute' : 'relative',
-          // position: isVert ? 'absolute' : 'relative',
-          // top: '0',
-          // left: '0',
         }}
       >
         {renderSrc}

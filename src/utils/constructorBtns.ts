@@ -1,3 +1,4 @@
+import React from 'react';
 import { ExitIcon } from '../components/svg/ExitIcon';
 import { ExitZap } from '../components/svg/ExitZap';
 import { EvShl } from '../components/svg/EvShl';
@@ -21,183 +22,182 @@ import { DeleteIcon } from '../components/svg/Del';
 import { Tel } from '../components/svg/Tel';
 import { CheckIcon } from '../components/svg/CheckIcon';
 import { RotateIcon } from '../components/svg/RotateIcon';
+import { ExitText } from '../components/textModals/ExitText';
+import { ZExitText } from '../components/textModals/ZExitText';
+import { NapLeftText } from '../components/textModals/NapLeftText';
+import { EvShlText } from '../components/textModals/EvShlText';
+import { NapRightText } from '../components/textModals/NapRightText';
+import { TelText } from '../components/textModals/TelText';
+import { VognText } from '../components/textModals/VognText';
+import { PogSpText } from '../components/textModals/PogSpText';
+import { PogKranText } from '../components/textModals/PogKranText';
+import { LocationText } from '../components/textModals/LocationText';
+import { PogDrabinaText } from '../components/textModals/PogDrabinaText';
 
+const Empty = () => null;
 export const btnsLeft = [
-  {
-    title: 'Вихiд',
-    desc:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
-    icon: ExitIcon,
-    name: 'exit',
-    id: 1,
-    link: 'http://localhost:3000/#/plan',
-    positionLeft: 0,
-  },
-  {
-    title: 'Запасний вихід',
-    name: 'zExit',
-    desc:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
-    icon: ExitZap,
-    id: 2,
-    link: 'http://localhost:3000/#/plan',
-    positionLeft: 30,
-  },
-  {
-    title: 'Евакуаційний шлях',
-    name: 'evSh',
-    desc:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
-    icon: EvShl,
-    id: 3,
-    link: 'http://localhost:3000/#/plan',
-    positionLeft: 70,
-  },
-  {
-    title: 'Напрямок до виходу ліворуч',
-    name: 'nprDoVL',
-    desc:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
-    icon: NapLeft,
-    id: 4,
-    link: 'http://localhost:3000/#/plan',
-    positionLeft: 20,
-  },
-  {
-    title: 'Напрямок до виходу праворуч',
-    name: 'nprDoVP',
-    desc:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
-    icon: NapRight,
-    id: 5,
-    link: 'http://localhost:3000/#/plan',
-    positionLeft: 30,
-  },
-  {
-    title: 'Телефон',
-    name: 'tel',
-    desc:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
-    icon: Tel,
-    id: 6,
-    link: 'http://localhost:3000/#/plan',
-    positionLeft: 30,
-  },
-  {
-    title: 'Вогнегасник',
-    name: 'vogn',
-    desc:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
-    icon: Vogn,
-    id: 7,
-    link: 'http://localhost:3000/#/plan',
-  },
-  {
-    title: 'Пожежний сповіщувач',
-    name: 'pogSp',
-    desc:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
-    icon: PogSp,
-    id: 8,
-    link: 'http://localhost:3000/#/plan',
-  },
-  {
-    title: 'Пожежний кран-комплект',
-    name: 'pogKran',
-    desc:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
-    icon: PogKran,
-    id: 9,
-    link: 'http://localhost:3000/#/plan',
-  },
-  {
-    title: 'Пожежна драбина',
-    name: 'pogDrabina',
-    desc:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
-    icon: PogDrabina,
-    id: 10,
-    link: 'http://localhost:3000/#/plan',
-  },
-  {
-    title: 'Ви перебуваєте тут',
-    name: 'location',
-    desc:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
-    icon: Location,
-    id: 11,
-    link: 'http://localhost:3000/#/plan',
-    positionLeft: 30,
-  },
   {
     title: 'Стіна зовнішня',
     name: 'zovnStina',
-    desc:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
+    desc: Empty,
     icon: ZovnStina,
-    id: 12,
+    id: 0,
     link: 'http://localhost:3000/#/plan',
     positionLeft: 30,
   },
   {
     title: 'Стіна внутрішня',
     name: 'vnutrStina',
-    desc:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
+    desc: Empty,
     icon: VnutrStina,
-    id: 13,
+    id: 1,
     link: 'http://localhost:3000/#/plan',
     positionLeft: 30,
   },
   {
     title: 'Дверний отвір у зовнішній стіні',
     name: 'dvOtvirZ',
-    desc:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
+    desc: Empty,
     icon: DvOtvirZ,
-    id: 14,
+    id: 2,
     link: 'http://localhost:3000/#/plan',
     positionLeft: 30,
   },
   {
     title: 'Дверний отвір у внутрішній стіні',
     name: 'dvOtvirV',
-    desc:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
+    desc: Empty,
     icon: DvOtvirV,
-    id: 15,
+    id: 3,
     link: 'http://localhost:3000/#/plan',
     positionLeft: 30,
   },
   {
     title: 'Вікно у зовнішній стіні',
     name: 'vikZ',
-    desc:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
+    desc: Empty,
     icon: VikZ,
-    id: 16,
+    id: 4,
     link: 'http://localhost:3000/#/plan',
     positionLeft: 30,
   },
   {
     title: 'Вікно у внутрішній стіні',
     name: 'vikV',
-    desc:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
+    desc: Empty,
     icon: VikV,
-    id: 17,
+    id: 5,
     link: 'http://localhost:3000/#/plan',
     positionLeft: 30,
   },
   {
     title: 'Сходи',
     name: 'shodi',
-    desc:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
+    desc: Empty,
     icon: Shodi,
-    id: 18,
+    id: 6,
     link: 'http://localhost:3000/#/plan',
     positionLeft: 30,
+  },
+  {
+    title: 'Евакуаційний шлях',
+    name: 'evSh',
+    desc: EvShlText,
+    icon: EvShl,
+    id: 7,
+    link: 'http://localhost:3000/#/plan',
+    positionLeft: 70,
+  },
+  {
+    title: 'Вихiд',
+    desc: ExitText,
+    icon: ExitIcon,
+    name: 'exit',
+    id: 8,
+    link: 'http://localhost:3000/#/plan',
+    positionLeft: 0,
+  },
+  {
+    title: 'Запасний вихід',
+    name: 'zExit',
+    desc: ZExitText,
+    icon: ExitZap,
+    id: 9,
+    link: 'http://localhost:3000/#/plan',
+    positionLeft: 30,
+  },
+
+  {
+    title: 'Напрямок до виходу ліворуч',
+    name: 'nprDoVL',
+    desc: NapLeftText,
+    icon: NapLeft,
+    id: 12,
+    link: 'http://localhost:3000/#/plan',
+    positionLeft: 20,
+  },
+  {
+    title: 'Напрямок до виходу праворуч',
+    name: 'nprDoVP',
+    desc: NapRightText,
+    icon: NapRight,
+    id: 13,
+    link: 'http://localhost:3000/#/plan',
+    positionLeft: 30,
+  },
+  {
+    title: 'Телефон',
+    name: 'tel',
+    desc: TelText,
+    icon: Tel,
+    id: 14,
+    link: 'http://localhost:3000/#/plan',
+    positionLeft: 30,
+  },
+  {
+    title: 'Вогнегасник',
+    name: 'vogn',
+    desc: VognText,
+    icon: Vogn,
+    id: 16,
+    link: 'http://localhost:3000/#/plan',
+    positionLeft: 0,
+  },
+  {
+    title: 'Пожежний сповіщувач',
+    name: 'pogSp',
+    desc: PogSpText,
+    icon: PogSp,
+    id: 17,
+    link: 'http://localhost:3000/#/plan',
+    positionLeft: 0,
+  },
+  {
+    title: 'Пожежний кран-комплект',
+    name: 'pogKran',
+    desc: PogKranText,
+    icon: PogKran,
+    id: 18,
+    link: 'http://localhost:3000/#/plan',
+    positionLeft: 0,
+  },
+  {
+    title: 'Пожежна драбина',
+    name: 'pogDrabina',
+    desc: PogDrabinaText,
+    icon: PogDrabina,
+    id: 19,
+    link: 'http://localhost:3000/#/plan',
+    positionLeft: 0,
+  },
+  {
+    title: 'Ви перебуваєте тут',
+    name: 'location',
+    desc: LocationText,
+    icon: Location,
+    id: 20.2,
+    link: 'http://localhost:3000/#/plan',
+    positionLeft: 130,
   },
 ];
 
@@ -208,7 +208,7 @@ export const btnsRight = [
     desc:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
     icon: DeleteIcon,
-    id: 1,
+    id: 18,
     link: '',
   },
   {
@@ -217,7 +217,7 @@ export const btnsRight = [
     desc:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
     icon: RotateIcon,
-    id: 3,
+    id: 19,
     link: '',
   },
   {
@@ -226,7 +226,7 @@ export const btnsRight = [
     desc:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia sapiente odio et non quae ex dolores ipsa, deserunt placeat magni esse doloribus eligendi aspernatur quod nemo qui repellendus quasi a?',
     icon: CheckIcon,
-    id: 2,
+    id: 20,
     link: '',
   },
   // {

@@ -198,7 +198,8 @@ export const Plan: React.FunctionComponent = () => {
               ) : null}
               <div>
                 <h2>{currentBtn?.title}</h2>
-                <p>{currentBtn?.desc}</p>
+                {currentBtn ? <currentBtn.desc /> : null}
+                {/* <p>{currentBtn?.desc}</p> */}
                 {currentBtn?.link ? (
                   <p>
                     Детальна iнформацiя: <br />{' '}

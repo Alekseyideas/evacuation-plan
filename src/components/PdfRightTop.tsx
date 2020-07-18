@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-
+import moment from 'moment';
 interface IProps {
   posada: string;
   pib: string;
@@ -8,6 +8,7 @@ interface IProps {
 }
 
 export const PdfRightTop: React.FC<IProps> = ({ posada, pib, date }) => {
+  const convertDate = moment(date || new Date()).format('DD.MM.YYYY');
   return (
     <WrapperS>
       <h2>Затверджено</h2>
@@ -20,7 +21,7 @@ export const PdfRightTop: React.FC<IProps> = ({ posada, pib, date }) => {
         <span>ПIБ</span>
       </BlockS>
       <BlockS>
-        <p>{date}</p>
+        <p>{convertDate}</p>
         <span>дата</span>
       </BlockS>
     </WrapperS>
@@ -46,9 +47,16 @@ const BlockS = styled.div`
   border-bottom: 1px solid grey;
   margin: 20px 0;
   padding-bottom: 0;
+  input {
+    width: 100%;
+    text-align: right;
+  }
+  input,
   p {
     margin: 0;
     color: black;
+    border: 0;
+    padding: 0;
     /* white-space: nowrap; */
     text-align: right;
     font-size: 13px;
