@@ -64,6 +64,7 @@ export const Box: React.FC<BoxProps> = ({
   const [width, setWidth] = React.useState(0);
   const [height, setHeight] = React.useState(0);
   const ref = React.useRef<any>(null);
+  const wRef = React.useRef<any>(null);
   const [rotation, setRotation] = React.useState(0);
   const [deleted, setDeleted] = React.useState(false);
   const [minHeight, setMinHeight] = React.useState(10);
@@ -124,13 +125,26 @@ export const Box: React.FC<BoxProps> = ({
     }
   }, [name]);
 
-  const saveHandler = () => {
+  const saveHandler = React.useCallback(() => {
     setEditMode(false);
     if (isVert) {
       console.log(top, left);
       // updatePosition(top + width, left + height);
     }
-  };
+  }, [isVert, left, top]);
+
+  React.useEffect(() => {
+    const handleClick = (event: any) => {
+      // console.log(wRef.current);
+      if (wRef.current && !wRef.current.contains(event.target)) {
+        saveHandler();
+      }
+    };
+    document.addEventListener('mousedown', handleClick);
+    return () => {
+      document.removeEventListener('mousedown', handleClick);
+    };
+  }, [wRef, saveHandler]);
 
   const rotateHandler = () => {
     setRotation((oldVal) => {
@@ -157,7 +171,8 @@ export const Box: React.FC<BoxProps> = ({
   }
 
   let renderSrc: any = null;
-
+  let isProportional = false;
+  let isHalf = false;
   switch (name) {
     case 'dvOtvirZ':
     case 'dvOtvirV':
@@ -165,34 +180,54 @@ export const Box: React.FC<BoxProps> = ({
       break;
     case 'exit':
       renderSrc = <PrevExit w={width} h={height} />;
+      isProportional = true;
+      isHalf = true;
       break;
     case 'zExit':
       renderSrc = <PrevZExit w={width} h={height} />;
+      isProportional = true;
+      isHalf = true;
       break;
     case 'nprDoVL':
       renderSrc = <PrevNapLeft w={width} h={height} />;
+      isProportional = true;
+      isHalf = true;
       break;
 
     case 'nprDoVP':
       renderSrc = <PrevNapLeft w={width} h={height} transform />;
+      isProportional = true;
+      isHalf = true;
       break;
     case 'evSh':
       renderSrc = <PrevEvShl w={width} h={height} />;
+      isProportional = true;
+      isHalf = true;
       break;
     case 'tel':
       renderSrc = <PrevPhone w={width} h={height} />;
+      isProportional = true;
+      isHalf = false;
       break;
     case 'vogn':
       renderSrc = <PrevVogn w={width} h={height} />;
+      isProportional = true;
+      isHalf = false;
       break;
     case 'pogSp':
       renderSrc = <PrevSpov w={width} h={height} />;
+      isProportional = true;
+      isHalf = false;
       break;
     case 'pogKran':
       renderSrc = <PrevKran w={width} h={height} />;
+      isProportional = true;
+      isHalf = false;
       break;
     case 'pogDrabina':
       renderSrc = <PrevDrabina w={width} h={height} />;
+      isProportional = true;
+      isHalf = false;
       break;
     case 'vnutrStina':
       renderSrc = <PrevStina w={width} h={height} />;
@@ -208,10 +243,14 @@ export const Box: React.FC<BoxProps> = ({
       break;
     case 'shodi':
       renderSrc = <PrevShodi w={width} h={height} />;
+      isProportional = true;
+      isHalf = false;
       break;
 
     case 'location':
       renderSrc = <PrevLocation w={width} h={height} />;
+      isProportional = true;
+      isHalf = false;
       break;
     default:
       renderSrc = null;
@@ -223,119 +262,132 @@ export const Box: React.FC<BoxProps> = ({
   }
 
   if (editMode) {
+    let maxH = maxHeight;
+    let minH = minHeight;
+    if (isProportional && !isHalf) {
+      maxH = width;
+      minH = width;
+    }
+    if (isProportional && isHalf) {
+      maxH = width / 2;
+      minH = width / 2;
+    }
     return (
-      <Resizable
-        className="31232131"
-        ref={ref}
-        enable={{
-          top: false,
-          right: true,
-          bottom: true,
-          left: false,
-          topRight: false,
-          bottomRight: true,
-          bottomLeft: false,
-          topLeft: false,
-        }}
-        style={{
-          boxShadow: '0 0 0 1px yellow',
-          padding: '0',
-          position: 'absolute',
-          left,
-          top,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-        minHeight={minHeight || undefined}
-        minWidth={minWidth || undefined}
-        maxHeight={isVert ? undefined : maxHeight || undefined}
-        maxWidth={isVert ? maxHeight || undefined : undefined}
-        onResizeStop={(e, direction, ref, d) => {
-          if (isVert) {
-            setOldWidth((oldWidth2) => oldWidth2 + d.height);
-            setOldHeight((oldHeight2) => oldHeight2 + d.width);
-          } else {
-            setOldWidth((oldWidth2) => oldWidth2 + d.width);
-            setOldHeight((oldHeight2) => oldHeight2 + d.height);
-          }
-        }}
-        onResize={(e, direction, ref, d) => {
-          const dir = direction.toLocaleLowerCase();
-          if (dir.includes('top')) {
-            if (!dirTop) {
-              setDirTop(true);
-            }
-          }
-          if (dir.includes('bottom')) {
-            if (dirTop) {
-              setDirTop(false);
-            }
-          }
-
-          if (dir.includes('left')) {
-            if (dirRight) {
-              setDirRight(false);
-            }
-          }
-          if (dir.includes('right')) {
-            if (!dirRight) {
-              setDirRight(true);
-            }
-          }
-
-          if (isVert) {
-            // setResH(d.height + oldWidth);
-            // setResW(d.width + oldHeight);
-            setWidth(() => d.height + oldWidth);
-            setHeight(() => d.width + oldHeight);
-          } else {
-            // setResH(d.width + oldWidth);
-            // setResW(d.height + oldHeight);
-            if (d.width + oldWidth > 10 && d.height + oldHeight > 10) {
-              setWidth(() => d.width + oldWidth);
-              setHeight(() => d.height + oldHeight);
-            }
-          }
-        }}
-        defaultSize={{
-          width: isVert ? height + defPad : width + defPad,
-          height: isVert ? width + defPad : height + defPad,
-        }}
-      >
-        <BoxBtnsS
-          style={{
-            bottom: top >= 30 ? '100%' : 'initial',
-            top: top < 30 ? '100%' : 'initial',
+      <div ref={wRef}>
+        <Resizable
+          className="31232131"
+          ref={ref}
+          enable={{
+            top: false,
+            right: true,
+            bottom: true,
+            left: false,
+            topRight: false,
+            bottomRight: true,
+            bottomLeft: false,
+            topLeft: false,
           }}
-        >
-          <button onClick={saveHandler}>
-            <CheckIcon />
-          </button>
-          <button onClick={rotateHandler}>
-            <RotateIcon />
-          </button>
-          <button
-            onClick={() => {
-              setEditMode(false);
-              setDeleted(true);
-              removeBox();
-            }}
-          >
-            <DeleteIcon />
-          </button>
-        </BoxBtnsS>
-        <div
           style={{
+            boxShadow: '0 0 0 1px yellow',
+            padding: '0',
+            position: 'absolute',
+            left,
+            top,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            transform: `rotate(-${rotation}deg)`,
+          }}
+          lockAspectRatioExtraHeight={2}
+          minHeight={minH || undefined}
+          minWidth={minWidth || undefined}
+          maxHeight={isVert ? undefined : maxH || undefined}
+          maxWidth={isVert ? maxHeight || undefined : undefined}
+          onResizeStop={(e, direction, ref, d) => {
+            if (isVert) {
+              setOldWidth((oldWidth2) => oldWidth2 + d.height);
+              setOldHeight((oldHeight2) => oldHeight2 + d.width);
+            } else {
+              setOldWidth((oldWidth2) => oldWidth2 + d.width);
+              setOldHeight((oldHeight2) => oldHeight2 + d.height);
+            }
+          }}
+          onResize={(e, direction, ref, d) => {
+            const dir = direction.toLocaleLowerCase();
+            if (dir.includes('top')) {
+              if (!dirTop) {
+                setDirTop(true);
+              }
+            }
+            if (dir.includes('bottom')) {
+              if (dirTop) {
+                setDirTop(false);
+              }
+            }
+
+            if (dir.includes('left')) {
+              if (dirRight) {
+                setDirRight(false);
+              }
+            }
+            if (dir.includes('right')) {
+              if (!dirRight) {
+                setDirRight(true);
+              }
+            }
+
+            if (isVert) {
+              // setResH(d.height + oldWidth);
+              // setResW(d.width + oldHeight);
+              setWidth(() => d.height + oldWidth);
+              setHeight(() => d.width + oldHeight);
+            } else {
+              // setResH(d.width + oldWidth);
+              // setResW(d.height + oldHeight);
+              if (d.width + oldWidth > 10 && d.height + oldHeight > 10) {
+                setWidth(() => d.width + oldWidth);
+                setHeight(() => d.height + oldHeight);
+              }
+            }
+          }}
+          defaultSize={{
+            width: isVert ? height + defPad : width + defPad,
+            height: isVert ? width + defPad : height + defPad,
           }}
         >
-          {renderSrc}
-        </div>
-      </Resizable>
+          <BoxBtnsS
+            style={{
+              bottom: top >= 30 ? '100%' : 'initial',
+              top: top < 30 ? '100%' : 'initial',
+            }}
+          >
+            {/* <button onClick={saveHandler}>
+            <CheckIcon />
+          </button> */}
+            <button onClick={rotateHandler}>
+              <RotateIcon />
+            </button>
+            <button
+              onClick={() => {
+                setEditMode(false);
+                setDeleted(true);
+                removeBox();
+              }}
+            >
+              <DeleteIcon />
+            </button>
+          </BoxBtnsS>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              transform: `rotate(-${rotation}deg)`,
+            }}
+          >
+            {renderSrc}
+          </div>
+        </Resizable>
+      </div>
     );
   }
   const heightHalf = height / 2;
