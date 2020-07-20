@@ -16,7 +16,7 @@ const WrapperS = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2px;
+  padding: 0;
 `;
 const InnerWrapperS = styled.div`
   width: 100%;

@@ -92,9 +92,9 @@ export const Box: React.FC<BoxProps> = ({
       case 'nprDoVP':
         initialSet(90, 45);
         break;
-      case 'evSh':
-        initialSet(90, 13);
-        break;
+      // case 'evSh':
+      //   initialSet(90, 13);
+      //   break;
       case 'pogSp':
       case 'pogKran':
       case 'pogDrabina':
@@ -103,6 +103,7 @@ export const Box: React.FC<BoxProps> = ({
       case 'tel':
         initialSet(40, 40);
         break;
+      case 'evSh':
       case 'vikV':
       case 'dvOtvirV':
       case 'vnutrStina':
@@ -201,8 +202,8 @@ export const Box: React.FC<BoxProps> = ({
       break;
     case 'evSh':
       renderSrc = <PrevEvShl w={width} h={height} />;
-      isProportional = true;
-      isHalf = true;
+      // isProportional = true;
+      // isHalf = true;
       break;
     case 'tel':
       renderSrc = <PrevPhone w={width} h={height} />;
