@@ -20,7 +20,7 @@ import { PrevDveri } from './svg/PrevDveri';
 import { PrevVikno } from './svg/PrevVikno';
 import { PrevShodi } from './svg/PrevShodi';
 import { BoxBtnsS } from './styles';
-import { CheckIcon } from './svg/CheckIcon';
+// import { CheckIcon } from './svg/CheckIcon';
 import { RotateIcon } from './svg/RotateIcon';
 import { DeleteIcon } from './svg/Del';
 const style: React.CSSProperties = {
@@ -47,7 +47,7 @@ export const Box: React.FC<BoxProps> = ({
   children,
   name,
   removeBox,
-  updatePosition,
+  // updatePosition,
 }) => {
   const [{ isDragging }, drag] = useDrag({
     item: { id, left, top, type: 'box' },

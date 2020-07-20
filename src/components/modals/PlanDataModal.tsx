@@ -12,7 +12,8 @@ const field4 = 'pib';
 const field5 = 'date';
 export const PlanDataModal = () => {
   const { dispatch } = React.useContext<IStore>(Store);
-  const { form, onChangeHandler } = useForm({
+  const { store } = React.useContext<IStore>(Store);
+  const { form, onChangeHandler, updateForm } = useForm({
     [field1]: {
       value: '',
     },
@@ -29,6 +30,24 @@ export const PlanDataModal = () => {
       value: '',
     },
   });
+  const { date, namePid, namePrim, pib, posada } = store;
+  React.useEffect(() => {
+    updateForm(field1, {
+      value: namePid,
+    });
+    updateForm(field2, {
+      value: namePrim,
+    });
+    updateForm(field3, {
+      value: posada,
+    });
+    updateForm(field4, {
+      value: pib,
+    });
+    updateForm(field5, {
+      value: date,
+    });
+  }, [date, namePid, namePrim, pib, posada, updateForm]);
   const Action = new StoreAction(dispatch);
 
   const saveHandler = () =>

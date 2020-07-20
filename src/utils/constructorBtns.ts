@@ -1,4 +1,3 @@
-import React from 'react';
 import { ExitIcon } from '../components/svg/ExitIcon';
 import { ExitZap } from '../components/svg/ExitZap';
 import { EvShl } from '../components/svg/EvShl';
@@ -33,70 +32,77 @@ import { PogSpText } from '../components/textModals/PogSpText';
 import { PogKranText } from '../components/textModals/PogKranText';
 import { LocationText } from '../components/textModals/LocationText';
 import { PogDrabinaText } from '../components/textModals/PogDrabinaText';
+import { ZovnStinaText } from '../components/textModals/ZovnStinaText';
+import { VnutrStinaText } from '../components/textModals/VnutrStinaText';
+import { DvOtvirZText } from '../components/textModals/DvOtvirZText';
+import { DvOtvirVText } from '../components/textModals/DvOtvirVText';
+import { VikZText } from '../components/textModals/VikZText';
+import { VikVText } from '../components/textModals/VikVText';
+import { ShodiText } from '../components/textModals/ShodiText';
 
 const Empty = () => null;
 export const btnsLeft = [
   {
     title: 'Стіна зовнішня',
     name: 'zovnStina',
-    desc: Empty,
+    desc: ZovnStinaText,
     icon: ZovnStina,
     id: 0,
-    link: 'http://localhost:3000/#/plan',
+    link: '',
     positionLeft: 30,
   },
   {
     title: 'Стіна внутрішня',
     name: 'vnutrStina',
-    desc: Empty,
+    desc: VnutrStinaText,
     icon: VnutrStina,
     id: 1,
-    link: 'http://localhost:3000/#/plan',
+    link: '',
     positionLeft: 30,
   },
   {
     title: 'Дверний отвір у зовнішній стіні',
     name: 'dvOtvirZ',
-    desc: Empty,
+    desc: DvOtvirZText,
     icon: DvOtvirZ,
     id: 2,
-    link: 'http://localhost:3000/#/plan',
+    link: '',
     positionLeft: 30,
   },
   {
     title: 'Дверний отвір у внутрішній стіні',
     name: 'dvOtvirV',
-    desc: Empty,
+    desc: DvOtvirVText,
     icon: DvOtvirV,
     id: 3,
-    link: 'http://localhost:3000/#/plan',
+    link: '',
     positionLeft: 30,
   },
   {
     title: 'Вікно у зовнішній стіні',
     name: 'vikZ',
-    desc: Empty,
+    desc: VikZText,
     icon: VikZ,
     id: 4,
-    link: 'http://localhost:3000/#/plan',
+    link: '',
     positionLeft: 30,
   },
   {
     title: 'Вікно у внутрішній стіні',
     name: 'vikV',
-    desc: Empty,
+    desc: VikVText,
     icon: VikV,
     id: 5,
-    link: 'http://localhost:3000/#/plan',
+    link: '',
     positionLeft: 30,
   },
   {
     title: 'Сходи',
     name: 'shodi',
-    desc: Empty,
+    desc: ShodiText,
     icon: Shodi,
     id: 6,
-    link: 'http://localhost:3000/#/plan',
+    link: '',
     positionLeft: 30,
   },
   {
@@ -105,7 +111,7 @@ export const btnsLeft = [
     desc: EvShlText,
     icon: EvShl,
     id: 7,
-    link: 'http://localhost:3000/#/plan',
+    link: '',
     positionLeft: 70,
   },
   {
@@ -114,7 +120,7 @@ export const btnsLeft = [
     icon: ExitIcon,
     name: 'exit',
     id: 8,
-    link: 'http://localhost:3000/#/plan',
+    link: '',
     positionLeft: 0,
   },
   {
@@ -123,7 +129,7 @@ export const btnsLeft = [
     desc: ZExitText,
     icon: ExitZap,
     id: 9,
-    link: 'http://localhost:3000/#/plan',
+    link: '',
     positionLeft: 30,
   },
 
@@ -133,7 +139,7 @@ export const btnsLeft = [
     desc: NapLeftText,
     icon: NapLeft,
     id: 12,
-    link: 'http://localhost:3000/#/plan',
+    link: '',
     positionLeft: 20,
   },
   {
@@ -142,7 +148,7 @@ export const btnsLeft = [
     desc: NapRightText,
     icon: NapRight,
     id: 13,
-    link: 'http://localhost:3000/#/plan',
+    link: '',
     positionLeft: 30,
   },
   {
@@ -151,7 +157,7 @@ export const btnsLeft = [
     desc: TelText,
     icon: Tel,
     id: 14,
-    link: 'http://localhost:3000/#/plan',
+    link: '',
     positionLeft: 30,
   },
   {
@@ -160,7 +166,7 @@ export const btnsLeft = [
     desc: VognText,
     icon: Vogn,
     id: 16,
-    link: 'http://localhost:3000/#/plan',
+    link: '',
     positionLeft: 0,
   },
   {
@@ -169,7 +175,7 @@ export const btnsLeft = [
     desc: PogSpText,
     icon: PogSp,
     id: 17,
-    link: 'http://localhost:3000/#/plan',
+    link: '',
     positionLeft: 0,
   },
   {
@@ -178,7 +184,7 @@ export const btnsLeft = [
     desc: PogKranText,
     icon: PogKran,
     id: 18,
-    link: 'http://localhost:3000/#/plan',
+    link: '',
     positionLeft: 0,
   },
   {
@@ -187,7 +193,7 @@ export const btnsLeft = [
     desc: PogDrabinaText,
     icon: PogDrabina,
     id: 19,
-    link: 'http://localhost:3000/#/plan',
+    link: '',
     positionLeft: 0,
   },
   {
@@ -196,7 +202,7 @@ export const btnsLeft = [
     desc: LocationText,
     icon: Location,
     id: 20.2,
-    link: 'http://localhost:3000/#/plan',
+    link: '',
     positionLeft: 130,
   },
 ];
