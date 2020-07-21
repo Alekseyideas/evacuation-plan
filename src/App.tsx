@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { hot } from 'react-hot-loader/root';
 import { Route, Switch } from 'react-router-dom';
 import { Header } from './components/Header';
@@ -25,14 +26,30 @@ function App() {
 
     const fnToken = async () => {
       await localStorage.clear();
-      generateID2((token: string | null) => {
+      generateID2(async (token: string | null) => {
         setId2(true);
         // setLoading(false);
 
         if (token) {
           console.log('token: ', token);
-
           dispatch(Action.setUser({ isAuth: true, token }));
+          try {
+            const res = await axios.request({
+              method: 'GET',
+              headers: {
+                'X-ACCESS-TOKEN': token,
+                // Connection: 'keep-alive'
+              },
+              url: 'https://service.mcfr.ua/Plan/api/',
+            });
+            console.log(res);
+          } catch (e) {
+            // console.log(e, 'error');
+            // dispatch(Action.setUser({ isAuth: false, token: '' }));
+            // dispatch(
+            //   Action.checkUser({ error: true, message: e && e.toString() })
+            // );
+          }
         } else {
           localStorage.clear();
           dispatch(Action.setUser({ isAuth: false, token: '' }));

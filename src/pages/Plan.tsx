@@ -45,6 +45,7 @@ export const Plan: React.FunctionComponent = () => {
   // const { store } = React.useContext<IStore>(Store);
   // const { editedItem } = store;\\
   const [isPdfGen, setIsPdfGen] = React.useState(false);
+  const [bgPos, setBgPos] = React.useState('-1000px');
   const [isBlackAndWhite, setIsBlackAndWhite] = React.useState(false);
   const { downloadHandler, loading: pdfGenLoading, setLoading } = usePdfGen(
     ['plan'],
@@ -151,7 +152,8 @@ export const Plan: React.FunctionComponent = () => {
         className="container"
         id="plan"
         style={{
-          position: 'relative',
+          position: pdfGenLoading ? 'absolute' : 'relative',
+          top: pdfGenLoading ? bgPos : 0,
         }}
       >
         <WRS>
@@ -233,6 +235,10 @@ export const Plan: React.FunctionComponent = () => {
                     className="btn btn-def"
                     style={{ width: '100%', marginTop: '10px' }}
                     onClick={() => {
+                      console.log();
+                      if (window.innerHeight < 550) {
+                        setBgPos(`-1000px`);
+                      }
                       setLoading(true);
                       setIsPdfGen(true);
                       setTimeout(() => {

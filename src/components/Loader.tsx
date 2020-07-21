@@ -18,7 +18,7 @@ export default function Loader(): ReactElement {
 const WrapperS = styled.div`
   position: fixed;
   z-index: 99999;
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 1);
   top: 0;
   left: 0;
   width: 100%;

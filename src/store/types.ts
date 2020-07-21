@@ -14,6 +14,11 @@ export interface IUser {
   token: string;
 }
 
+export interface ICheckData {
+  error: boolean;
+  message: string;
+}
+
 export interface IState {
   user: IUser | null;
   namePid: string;
@@ -73,4 +78,5 @@ export enum EActionTypes {
   DELETE_EDIT_ITEM = 'DELETE_EDIT_ITEM',
   TRANSFORM_APPLY = 'TRANSFORM_APPLY',
   SET_PLAN_INFO = 'SET_PLAN_INFO',
+  CHECK_USER = 'CHECK_USER',
 }

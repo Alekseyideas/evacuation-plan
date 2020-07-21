@@ -23,13 +23,14 @@ export const usePdfGen = (ids: string[], callBack?: () => void) => {
       if (!input) return null;
       const canvas = await html2canvas(input, {
         useCORS: true,
-        allowTaint: false,
+        // allowTaint: false,
         scale: 2,
-        logging: true,
+        // logging: true,
         backgroundColor: null,
         id,
       });
       const imgData = await canvas.toDataURL('image/jpg');
+      console.log('imgData: ', imgData);
       return imgsData.push({ img: imgData, id: num });
     });
 

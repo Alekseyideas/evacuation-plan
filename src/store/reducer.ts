@@ -11,6 +11,11 @@ export const initialModalState: IModal = {
 export default function reducer(state: IState, action: IAction): IState {
   if (!action) return state;
   switch (action.type) {
+    case EActionTypes.CHECK_USER:
+      return {
+        ...state,
+        errors: action.payload.message,
+      };
     case EActionTypes.SET_USER:
       return {
         ...state,

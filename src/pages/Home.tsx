@@ -37,12 +37,16 @@ export const Home: React.FC = () => {
               Видрукувати План евакуації людей на випадок пожежі можуть тільки
               передплатники інформаційних продуктів напряму MCFR Охорона праці.
             </p>
-            {user?.isAuth ? (
+            {user?.isAuth && !store.errors ? (
               <div className="btn-wrapper">
                 <Link to={ROUTE_PATH.plan} className="btn btn-def">
                   Створити
                 </Link>
               </div>
+            ) : null}
+
+            {store.errors ? (
+              <p style={{ color: 'red' }}>{store.errors}</p>
             ) : null}
           </div>
         </div>

@@ -1,10 +1,24 @@
-import { IAction, EActionTypes, IModal, IUser, IBox, IPlanInfo } from './types';
+import {
+  IAction,
+  EActionTypes,
+  IModal,
+  IUser,
+  IBox,
+  IPlanInfo,
+  ICheckData,
+} from './types';
 export default class StoreAction {
   dispatch: IAction | any;
   constructor(dispatch: IAction | any) {
     this.dispatch = dispatch;
   }
 
+  public checkUser = (payload: ICheckData) => {
+    return this.dispatch({
+      type: EActionTypes.CHECK_USER,
+      payload,
+    });
+  };
   public setUser = ({ isAuth, token }: IUser) => {
     return this.dispatch({
       type: EActionTypes.SET_USER,
