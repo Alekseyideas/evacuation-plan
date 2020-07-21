@@ -46,7 +46,10 @@ export const Home: React.FC = () => {
             ) : null}
 
             {store.errors ? (
-              <p style={{ color: 'red' }}>{store.errors}</p>
+              <p
+                style={{ color: 'red' }}
+                dangerouslySetInnerHTML={{ __html: store.errors }}
+              />
             ) : null}
           </div>
         </div>

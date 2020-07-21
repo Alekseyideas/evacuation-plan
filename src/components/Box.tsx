@@ -107,16 +107,16 @@ export const Box: React.FC<BoxProps> = ({
       case 'vikV':
       case 'dvOtvirV':
       case 'vnutrStina':
-        initialSet(100, 12);
-        setMinHeight(12);
-        setMaxHeight(12);
+        initialSet(100, 11);
+        setMinHeight(11);
+        setMaxHeight(11);
         break;
       case 'vikZ':
       case 'dvOtvirZ':
       case 'zovnStina':
-        initialSet(100, 18);
-        setMinHeight(18);
-        setMaxHeight(18);
+        initialSet(100, 16);
+        setMinHeight(16);
+        setMaxHeight(16);
         break;
       case 'shodi':
         initialSet(100, 60);

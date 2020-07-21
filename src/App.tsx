@@ -32,7 +32,8 @@ function App() {
 
         if (token) {
           console.log('token: ', token);
-          dispatch(Action.setUser({ isAuth: true, token }));
+          const http =
+            process.env.NODE_ENV === 'development' ? 'https' : 'https';
           try {
             const res = await axios.request({
               method: 'GET',
@@ -40,15 +41,26 @@ function App() {
                 'X-ACCESS-TOKEN': token,
                 // Connection: 'keep-alive'
               },
-              url: 'https://service.mcfr.ua/Plan/api/',
+              url: `${http}://service.mcfr.ua/Plan/api/`,
             });
-            console.log(res);
+            if (res.data.error) {
+              dispatch(
+                Action.checkUser({
+                  error: true,
+                  message: res.data.message || 'Виникла помилка',
+                })
+              );
+              dispatch(Action.setUser({ isAuth: false, token: '' }));
+              // dispatch(Action.setUser({ isAuth: true, token }));
+            } else {
+              dispatch(Action.setUser({ isAuth: true, token }));
+            }
           } catch (e) {
-            // console.log(e, 'error');
-            // dispatch(Action.setUser({ isAuth: false, token: '' }));
-            // dispatch(
-            //   Action.checkUser({ error: true, message: e && e.toString() })
-            // );
+            console.log(e, 'error');
+            dispatch(Action.setUser({ isAuth: false, token: '' }));
+            dispatch(
+              Action.checkUser({ error: true, message: e && e.toString() })
+            );
           }
         } else {
           localStorage.clear();
