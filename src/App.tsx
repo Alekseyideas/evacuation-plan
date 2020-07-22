@@ -21,6 +21,39 @@ function App() {
   const { store, dispatch } = React.useContext<IStore>(Store);
   const Action = new StoreAction(dispatch);
 
+  const checkUser = React.useCallback(
+    async (token) => {
+      const http = process.env.NODE_ENV === 'development' ? 'https' : 'https';
+      try {
+        const res = await axios.request({
+          method: 'GET',
+          headers: {
+            'X-ACCESS-TOKEN': token,
+            // Connection: 'keep-alive'
+          },
+          url: `${http}://service.mcfr.ua/Plan/api/`,
+        });
+        if (res.data.error) {
+          dispatch(
+            Action.checkUser({
+              error: true,
+              message: res.data.message || 'Виникла помилка',
+            })
+          );
+          dispatch(Action.setUser({ isAuth: false, token: '' }));
+          // dispatch(Action.setUser({ isAuth: true, token }));
+        } else {
+          dispatch(Action.setUser({ isAuth: true, token }));
+        }
+      } catch (e) {
+        console.log(e, 'error');
+        dispatch(Action.setUser({ isAuth: false, token: '' }));
+        dispatch(Action.checkUser({ error: true, message: e && e.toString() }));
+      }
+    },
+    [Action, dispatch]
+  );
+
   React.useEffect(() => {
     // setLoading(false);
 
@@ -28,56 +61,32 @@ function App() {
       await localStorage.clear();
       generateID2(async (token: string | null) => {
         setId2(true);
+        // dispatch(Action.setUser({ isAuth: false, token: token || '' }));
         // setLoading(false);
+        checkUser(token);
+        // if (token) {
 
-        if (token) {
-          console.log('token: ', token);
-          const http =
-            process.env.NODE_ENV === 'development' ? 'https' : 'https';
-          try {
-            const res = await axios.request({
-              method: 'GET',
-              headers: {
-                'X-ACCESS-TOKEN': token,
-                // Connection: 'keep-alive'
-              },
-              url: `${http}://service.mcfr.ua/Plan/api/`,
-            });
-            if (res.data.error) {
-              dispatch(
-                Action.checkUser({
-                  error: true,
-                  message: res.data.message || 'Виникла помилка',
-                })
-              );
-              dispatch(Action.setUser({ isAuth: false, token: '' }));
-              // dispatch(Action.setUser({ isAuth: true, token }));
-            } else {
-              dispatch(Action.setUser({ isAuth: true, token }));
-            }
-          } catch (e) {
-            console.log(e, 'error');
-            dispatch(Action.setUser({ isAuth: false, token: '' }));
-            dispatch(
-              Action.checkUser({ error: true, message: e && e.toString() })
-            );
-          }
-        } else {
-          localStorage.clear();
-          dispatch(Action.setUser({ isAuth: false, token: '' }));
-          // setLoading(false);
-          // if (user.isLoggedIn) dispatch(logoutRequest);
-          // setTimeout(() => {
-          // 	dispatch(fetchMenuRequest());
-          // }, 100);
-        }
+        // } else {
+        //   localStorage.clear();
+        //   dispatch(Action.setUser({ isAuth: false, token: '' }));
+        //   // setLoading(false);
+        //   // if (user.isLoggedIn) dispatch(logoutRequest);
+        //   // setTimeout(() => {
+        //   // 	dispatch(fetchMenuRequest());
+        //   // }, 100);
+        // }
       });
     };
     if (!id2) {
       fnToken();
     }
-  }, [Action, dispatch, id2]);
+  }, [Action, checkUser, dispatch, id2]);
 
+  // React.useEffect(() => {
+  //   if (store.user?.token) {
+  //     checkUser(store.user?.token);
+  //   }
+  // }, [checkUser, store.user]);
   const renderApp = () => {
     if (store.user?.isAuth) {
       return (
